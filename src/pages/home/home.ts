@@ -119,7 +119,7 @@ export class HomePage {
         };
         */
 
-        this.json = {pages:[{name:"page1",elements:[{type:"radiogroup",name:"¿Qué aparatos móviles posees?",choices:["Móvil","Portátil","Tablet","Lector electrónico","MP3 o MP4","Otros"]},{type:"checkbox",name:"¿Cuál de los siguientes aparatos utilizas frecuentemente para conectarte a Internet?",choices:["Móvil","Portátil","Tablet","Lector electrónico","Ordenador","Otro"]}]}]};
+        this.json = {title: "Aparatos Móviles", /*showProgressBar: "bottom", goNextPageAutomatic: true, showNavigationButtons: false,*/ pages:[{elements:[{type:"radiogroup",choices:["Móvil","Portátil","Tablet","Lector electrónico","MP3 o MP4"],choicesOrder:"asc",commentText:"Otro (Especificar)",hasComment:true,name:"¿Qué aparatos móviles posees?"},{type:"checkbox",choices:["Móvil","Portátil","Tablet","Lector electrónico","Ordenador","Otro"],choicesOrder:"asc",name:"¿Cuál de los siguientes aparatos utilizas frecuentemente para conectarte a Internet?"},{type:"radiogroup",choices:["Sí","No"],colCount:0,name:"¿Se ajustan tus aparatos móviles a tu estilo de vida?"}],name:"page1"},{elements:[{type:"radiogroup",choices:["+8","5-8","3-4","1-2","Menos de una hora al día"],name:"¿Cuántas horas diarias utilizas los aparatos móviles?"}],name:"page2"}]};
 
     }
 }

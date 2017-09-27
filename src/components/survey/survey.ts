@@ -17,8 +17,17 @@ export class SurveyComponent {
     surveyJSON: any;
 
     @Input() set json(surveyJSON) {
+        Survey.Survey.cssType = "bootstrap";
+        Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
         this.surveyJSON = surveyJSON;
         let surveyModel = new Survey.ReactSurveyModel(this.surveyJSON);
+
+        // Change language.
+        surveyModel.locale = "es";
+
+        // Progress Bar.
+        surveyModel.showProgressBar = 'bottom';
+
         surveyModel.onComplete.add(this.sendDataToServer);
         Survey.SurveyNG.render('surveyElement', { model: surveyModel });
 
