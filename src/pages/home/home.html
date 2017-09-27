@@ -7,5 +7,16 @@
 </ion-header>
 
 <ion-content padding>
+
+    <ion-list>
+        <ion-item *ngFor="let survey of surveys">
+            <ion-thumbnail item-start>
+                <img src="https://austparents.edu.au/2015/wp-content/uploads/surveys.jpg">
+            </ion-thumbnail>
+            <h2>{{survey.Name}}</h2>
+            <p>{{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>
+            <!--<button ion-button clear item-end>View</button>-->
+        </ion-item>
+    </ion-list>
     <survey [json]="json"></survey>
 </ion-content>

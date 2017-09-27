@@ -1,15 +1,24 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { SurveyProvider } from '../../providers/survey/survey'
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
 
+    surveys: any;
     json: any;
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider) {
+
+        this.surveyProvider.getActiveSurveys()
+            .then(data => {
+                console.log(data);
+                this.surveys = data;
+            });
 
         /*
         this.json = { title: 'Product Feedback Survey Example', showProgressBar: 'top', pages: [
