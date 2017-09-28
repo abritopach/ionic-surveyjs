@@ -9,7 +9,7 @@
 <ion-content padding>
 
     <ion-list>
-        <ion-item *ngFor="let survey of surveys">
+        <ion-item *ngFor="let survey of surveys" (click)="selectedSurvey(survey)">
             <ion-thumbnail item-start>
                 <img src="https://austparents.edu.au/2015/wp-content/uploads/surveys.jpg">
             </ion-thumbnail>
@@ -18,5 +18,4 @@
             <!--<button ion-button clear item-end>View</button>-->
         </ion-item>
     </ion-list>
-    <survey [json]="json"></survey>
 </ion-content>

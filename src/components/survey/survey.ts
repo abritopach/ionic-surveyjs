@@ -15,12 +15,33 @@ import * as Survey from 'survey-angular';
 export class SurveyComponent {
 
     surveyJSON: any;
+    surveyId: string;
 
+    /*
     @Input() set json(surveyJSON) {
         Survey.Survey.cssType = "bootstrap";
         Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
         this.surveyJSON = surveyJSON;
-        let surveyModel = new Survey.ReactSurveyModel(this.surveyJSON);
+        //let surveyModel = new Survey.ReactSurveyModel(this.surveyJSON);
+
+        // Change language.
+        surveyModel.locale = "es";
+
+        // Progress Bar.
+        surveyModel.showProgressBar = 'bottom';
+
+        surveyModel.onComplete.add(this.sendDataToServer);
+        Survey.SurveyNG.render('surveyElement', { model: surveyModel });
+
+    }
+    */
+
+    @Input() set surveyID(surveyID) {
+        Survey.Survey.cssType = "bootstrap";
+        Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+
+        this.surveyId = surveyID;
+        let surveyModel = new Survey.ReactSurveyModel({ surveyId: this.surveyId });
 
         // Change language.
         surveyModel.locale = "es";

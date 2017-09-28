@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class SurveyProvider {
 
     data: any;
-    accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    accessKey: string = "ceae979801a946bbb5043cea79228fc5";
 
     constructor(public http: Http) {
         //console.log('Hello SurveyProvider Provider');

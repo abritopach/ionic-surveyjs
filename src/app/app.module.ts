@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { SurveyDetailsPage } from '../pages/survey-details/survey-details';
 
 import { SurveyComponent } from '../components/survey/survey';
 import { SurveyProvider } from '../providers/survey/survey';
@@ -15,7 +16,8 @@ import { SurveyProvider } from '../providers/survey/survey';
     declarations: [
         MyApp,
         HomePage,
-        SurveyComponent
+        SurveyComponent,
+        SurveyDetailsPage
     ],
     imports: [
         BrowserModule,
@@ -25,7 +27,8 @@ import { SurveyProvider } from '../providers/survey/survey';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        HomePage
+        HomePage,
+        SurveyDetailsPage
     ],
     providers: [
         StatusBar,
