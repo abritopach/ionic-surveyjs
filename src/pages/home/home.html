@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
         <ion-title>
             Ionic & SurveyJS
         </ion-title>
@@ -9,9 +9,9 @@
 <ion-content padding>
 
     <ion-list>
-        <ion-item *ngFor="let survey of surveys" (click)="selectedSurvey(survey)">
+        <ion-item *ngFor="let survey of surveys; let i = index" (click)="selectedSurvey(survey)">
             <ion-thumbnail item-start>
-                <img src="https://austparents.edu.au/2015/wp-content/uploads/surveys.jpg">
+                <img [src]="survey.image">
             </ion-thumbnail>
             <h2>{{survey.Name}}</h2>
             <p>{{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>

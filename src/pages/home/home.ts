@@ -11,9 +11,16 @@ import { SurveyDetailsPage } from '../survey-details/survey-details';
 export class HomePage {
 
     surveys: any;
+    defaultImages: any;
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController) {
+
+        this.defaultImages = [
+            "https://austparents.edu.au/2015/wp-content/uploads/surveys.jpg",
+            "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
+            "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png"
+        ];
 
         let loading = this.loadingCtrl.create({
             content: "Loading Surveys..."
@@ -24,6 +31,9 @@ export class HomePage {
             .then(data => {
                 //console.log(data);
                 this.surveys = data;
+                for (var i = 0; i < this.surveys.length; i++) {
+                    this.surveys[i].image = this.defaultImages[this.getRandomNumber()];
+                }
                 loading.dismiss();
             }
         );
@@ -33,5 +43,9 @@ export class HomePage {
         this.navCtrl.push(SurveyDetailsPage, {
             surveyID: survey.Id
         });
+    }
+
+    getRandomNumber() {
+        return Math.floor(Math.random() * this.defaultImages.length);
     }
 }
