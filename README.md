@@ -8,6 +8,15 @@ This project shows you how to:
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show survey details.
 
+![App example](readme_resources/app.gif "App example")
+
+## Configuration
+
+    1) To use your own surveys register in [SurveyJS](https://surveyjs.io/Account/Register)
+    2) Create your own survey.
+    3) In providers/survey/survey.ts replace: accessKey with your [SurveyJS API accessKey](https://surveyjs.io/Help/Index/)
+    to get your active surveys.
+
 ## Running
 
 Before you go through this example, you should have at least a basic understanding of Ionic concepts. You must also already have Ionic installed on your machine.
