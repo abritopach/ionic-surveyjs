@@ -58,7 +58,7 @@ export class SurveyProvider {
                     // and save the data for later reference
                     //console.log(data);
                     this.data = data;
-                    resolve(this.data);
+                    resolve(this.data.Data);
                 },
                     err => {
                     console.log("ERROR -> " + JSON.stringify(err));
