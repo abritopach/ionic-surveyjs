@@ -43,5 +43,27 @@ export class SurveyProvider {
                 });
         });
     }
+	
+	getSurveyResults(idSurvey: any) {
+		// don't have the data yet
+        return new Promise(resolve => {
+            // We're using Angular HTTP provider to request the data,
+            // then on the response, it'll map the JSON data to a parsed JS object.
+            // Next, we process the data and resolve the promise with the new data.
+            //this.http.get(this.environment.getURL() + 'shopping_list/getAll', { search: params })
+            this.http.get('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey)
+                .map(res => res.json())
+                .subscribe(data => {
+                    // we've got back the raw data, now generate the core schedule data
+                    // and save the data for later reference
+                    //console.log(data);
+                    this.data = data;
+                    resolve(this.data);
+                },
+                    err => {
+                    console.log("ERROR -> " + JSON.stringify(err));
+                });
+        });
+	}
 
 }
