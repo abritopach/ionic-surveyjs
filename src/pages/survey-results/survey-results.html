@@ -15,9 +15,9 @@
 
 <ion-content padding>
 	<ion-grid>
-		<ion-row *ngFor="let result of results">
-			<ion-col col-2>{{result.HappendAt | date: 'dd/MM/yyyy H:mm'}}</ion-col>
-			<ion-col col-2>This column will take 2 columns</ion-col>
+		<ion-row *ngFor="let survey of surveys">
+			<ion-col col-2>{{survey.HappendAt | date: 'dd/MM/yyyy H:mm'}}</ion-col>
+			<ion-col col-2>{{survey.IPAddress}}</ion-col>
 			<ion-col col-2>This column will take 2 columns</ion-col>
 			<ion-col col-2>This column will take 2 columns</ion-col>
 			<ion-col col-2>This column will take 2 columns</ion-col>

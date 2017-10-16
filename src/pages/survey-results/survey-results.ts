@@ -19,20 +19,42 @@ export class SurveyResultsPage {
 
 	surveyID : string;
 	results: any;
+	surveys: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider) {
-	this.surveyID = this.navParams.get('surveyID');
 
-	this.surveyProvider.getSurveyResults(this.surveyID)
-	  .then(data => {
-		console.log(data);
-		this.results = JSON.parse(JSON.stringify(data));
-	  }
-	);
+		this.surveys = [];
+		this.surveyID = this.navParams.get('surveyID');
+
+		this.surveyProvider.getSurveyResults(this.surveyID)
+			.then(data => {
+			console.log(data);
+			this.results = JSON.parse(JSON.stringify(data));
+			this.getSurveyData();
+			}
+		);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SurveyResultsPage');
-  }
+	}
+
+	getSurveyData() {
+		let keys;
+		let json;
+		for (let i = 0; i < this.results.length; i++) {
+			//keys = Object.keys(this.results[i]);
+			//console.log(keys);
+			json = {};
+			for(let key in this.results[i]) {
+				let value = this.results[i][key];
+				console.log("key: " + key + " value: " + value); 
+				json[key] = value;
+			}
+			console.log(json);
+			this.surveys.push(json);
+			console.log("*************");
+		}
+	}
 
 }
