@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+interface ItemsResponse {
+    Data: string[];
+}
 
 /*
  Generated class for the SurveyProvider provider.
@@ -11,59 +14,52 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SurveyProvider {
 
-    data: any;
-    accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    accessKey: string = "c16bc56448bc4172b5de74326ff79b0c";
 
-    constructor(public http: Http) {
+    constructor(public http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
     }
 
     getActiveSurveys() {
-        // don't have the data yet
         return new Promise(resolve => {
-
-            //let params: URLSearchParams = new URLSearchParams();
-            //params.set('userId', userId);
-
-            // We're using Angular HTTP provider to request the data,
-            // then on the response, it'll map the JSON data to a parsed JS object.
-            // Next, we process the data and resolve the promise with the new data.
-            //this.http.get(this.environment.getURL() + 'shopping_list/getAll', { search: params })
             this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey)
-                .map(res => res.json())
-                .subscribe(data => {
-                    // we've got back the raw data, now generate the core schedule data
-                    // and save the data for later reference
-                    //console.log(data);
-                    this.data = data;
-                    resolve(this.data);
+            .subscribe(
+                data => {
+                    resolve(data);
                 },
-                    err => {
-                    console.log("ERROR -> " + JSON.stringify(err));
-                });
-        });
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                      // A client-side or network error occurred. Handle it accordingly.
+                      console.log('An error occurred:', err.error.message);
+                    } else {
+                      // The backend returned an unsuccessful response code.
+                      // The response body may contain clues as to what went wrong,
+                      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+                    }
+                }
+            );
+          });
     }
 	
 	getSurveyResults(idSurvey: any) {
-		// don't have the data yet
         return new Promise(resolve => {
-            // We're using Angular HTTP provider to request the data,
-            // then on the response, it'll map the JSON data to a parsed JS object.
-            // Next, we process the data and resolve the promise with the new data.
-            //this.http.get(this.environment.getURL() + 'shopping_list/getAll', { search: params })
-            this.http.get('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey)
-                .map(res => res.json())
-                .subscribe(data => {
-                    // we've got back the raw data, now generate the core schedule data
-                    // and save the data for later reference
-                    //console.log(data);
-                    this.data = data;
-                    resolve(this.data.Data);
+            this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey)
+            .subscribe(
+                data => {
+                    resolve(data.Data);
                 },
-                    err => {
-                    console.log("ERROR -> " + JSON.stringify(err));
-                });
-        });
+                (err: HttpErrorResponse) => {
+                    if (err.error instanceof Error) {
+                      // A client-side or network error occurred. Handle it accordingly.
+                      console.log('An error occurred:', err.error.message);
+                    } else {
+                      // The backend returned an unsuccessful response code.
+                      // The response body may contain clues as to what went wrong,
+                      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+                    }
+                }
+            );
+          });
 	}
 
 }
