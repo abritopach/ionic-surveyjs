@@ -20,6 +20,7 @@ export class SurveyResultsPage {
 	surveyID : string;
 	results: any;
 	surveys: any;
+	keys: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider) {
 
@@ -28,9 +29,13 @@ export class SurveyResultsPage {
 
 		this.surveyProvider.getSurveyResults(this.surveyID)
 			.then(data => {
-			console.log(data);
-			this.results = JSON.parse(JSON.stringify(data));
-			this.getSurveyData();
+				console.log(data);
+				this.results = JSON.parse(JSON.stringify(data));
+				if (this.results.length > 0) {
+					this.keys = Object.keys(this.results[0]);
+					//console.log(this.keys);
+					this.getSurveyData();
+				}
 			}
 		);
   }
@@ -40,21 +45,18 @@ export class SurveyResultsPage {
 	}
 
 	getSurveyData() {
-		let keys;
 		let json;
 		for (let i = 0; i < this.results.length; i++) {
-			//keys = Object.keys(this.results[i]);
-			//console.log(keys);
-			json = {};
+			json = {"HappendAt": "", "IPAddress": "", "values": []};
 			for(let key in this.results[i]) {
 				let value = this.results[i][key];
-				console.log("key: " + key + " value: " + value); 
-				json[key] = value;
+				//console.log("key: " + key + " value: " + value); 
+				if ((key == "HappendAt") || (key == "IPAddress")) json[key] = value.toString();
+				else json.values.push(value.toString());
 			}
-			console.log(json);
 			this.surveys.push(json);
-			console.log("*************");
 		}
+		console.log(this.surveys);
 	}
 
 }
