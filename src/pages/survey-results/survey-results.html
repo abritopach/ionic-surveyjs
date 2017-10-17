@@ -14,10 +14,19 @@
 
 
 <ion-content padding>
+	<ion-card>
+			<ion-card-header>
+				<ion-icon name="clipboard" item-start></ion-icon>
+				Leyenda
+			</ion-card-header>
+			<ion-card-content>
+				<p *ngFor="let key of keys; let i = index"><b>P{{i + 1}}</b> {{key}}</p>
+			</ion-card-content>
+		</ion-card>
 	<ion-grid>
 		<ion-row>
-			<ion-col col-2 *ngFor="let key of keys">
-					<b>{{key}}</b>
+			<ion-col col-2 *ngFor="let key of keys; let i = index">
+					<b>P{{i + 1}}</b>
 			</ion-col>
 		</ion-row>
 		<ion-row *ngFor="let survey of surveys">
@@ -25,7 +34,7 @@
 					{{value}}
 			</ion-col>
 			<ion-col col-2>{{survey.HappendAt | date: 'dd/MM/yyyy H:mm'}}</ion-col>
-			<ion-col col-2>{{survey.IPAddress}}</ion-col>
+			<!--<ion-col col-2>{{survey.IPAddress}}</ion-col>-->
 		</ion-row>
 	</ion-grid>
 </ion-content>

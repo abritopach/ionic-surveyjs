@@ -29,10 +29,10 @@ export class SurveyResultsPage {
 
 		this.surveyProvider.getSurveyResults(this.surveyID)
 			.then(data => {
-				console.log(data);
 				this.results = JSON.parse(JSON.stringify(data));
 				if (this.results.length > 0) {
 					this.keys = Object.keys(this.results[0]);
+					this.keys = this.keys.splice(0, this.keys.length - 2);
 					//console.log(this.keys);
 					this.getSurveyData();
 				}
@@ -41,7 +41,7 @@ export class SurveyResultsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SurveyResultsPage');
+    //console.log('ionViewDidLoad SurveyResultsPage');
 	}
 
 	getSurveyData() {
@@ -56,7 +56,6 @@ export class SurveyResultsPage {
 			}
 			this.surveys.push(json);
 		}
-		console.log(this.surveys);
 	}
 
 }
