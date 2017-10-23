@@ -14,7 +14,7 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    accessKey: string = "3cb4fd29e35541e5ad91fffdbcb7e62c";
+    accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(public http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -25,6 +25,7 @@ export class SurveyProvider {
             this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey)
             .subscribe(
                 data => {
+					console.log(data);
                     resolve(data);
                 },
                 (err: HttpErrorResponse) => {
