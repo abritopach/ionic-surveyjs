@@ -14,6 +14,8 @@ import { SurveyComponent } from '../components/survey/survey';
 import { SurveyProvider } from '../providers/survey/survey';
 import { ChartComponent } from '../components/chart/chart';
 
+import { ChartsModalPage } from '../modals/charts-modal';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -21,7 +23,8 @@ import { ChartComponent } from '../components/chart/chart';
         SurveyComponent,
         SurveyDetailsPage,
         SurveyResultsPage,
-        ChartComponent
+        ChartComponent,
+        ChartsModalPage
     ],
     imports: [
         BrowserModule,
@@ -33,7 +36,8 @@ import { ChartComponent } from '../components/chart/chart';
         MyApp,
         HomePage,
         SurveyDetailsPage,
-		SurveyResultsPage
+        SurveyResultsPage,
+        ChartsModalPage
     ],
     providers: [
         StatusBar,

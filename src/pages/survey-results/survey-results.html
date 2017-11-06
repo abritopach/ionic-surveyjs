@@ -14,6 +14,9 @@
 
 
 <ion-content padding>
+	<ion-fab top right edge>
+			<button ion-fab mini color="danger" (click)="openModal()"><ion-icon name="stats"></ion-icon></button>
+	</ion-fab>
 	<ion-card *ngIf="results?.length > 0">
 			<ion-card-header>
 				<ion-icon name="clipboard" item-start></ion-icon>
@@ -37,8 +40,4 @@
 			<!--<ion-col col-2>{{survey.IPAddress}}</ion-col>-->
 		</ion-row>
 	</ion-grid>
-	<ion-row *ngFor="let data of charData; let i = index">
-			<h5>Pregunta P{{i + 1}}</h5>
-			<chart [chartData]="data"></chart>
-	</ion-row>
 </ion-content>

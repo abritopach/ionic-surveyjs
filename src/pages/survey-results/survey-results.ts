@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 
 import { SurveyProvider } from '../../providers/survey/survey';
+
+import { ChartsModalPage } from '../../modals/charts-modal';
 
 /**
  * Generated class for the SurveyResultsPage page.
@@ -24,7 +26,7 @@ export class SurveyResultsPage {
 	charData: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
-			  public loadingCtrl: LoadingController) {
+			  public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
 
 		this.surveys = [];
 		this.surveyID = this.navParams.get('surveyID');
@@ -80,6 +82,11 @@ export class SurveyResultsPage {
 		  }, []);
 		//console.log(res);
 		this.charData.push(res);
+	}
+
+	openModal() {
+		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': this.charData});
+		modal.present();
 	}
 
 }
