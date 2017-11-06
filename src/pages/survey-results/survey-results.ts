@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { SurveyProvider } from '../../providers/survey/survey';
 
@@ -22,11 +22,17 @@ export class SurveyResultsPage {
 	surveys: any;
 	keys: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
+			  public loadingCtrl: LoadingController) {
 
 		this.surveys = [];
 		this.surveyID = this.navParams.get('surveyID');
 
+		let loading = this.loadingCtrl.create({
+            content: "Loading Survey results..."
+        });
+
+		loading.present();
 		this.surveyProvider.getSurveyResults(this.surveyID)
 			.then(data => {
 				this.results = JSON.parse(JSON.stringify(data));
@@ -35,13 +41,14 @@ export class SurveyResultsPage {
 					this.keys = this.keys.splice(0, this.keys.length - 2);
 					//console.log(this.keys);
 					this.getSurveyData();
+					loading.dismiss();
 				}
 			}
 		);
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad SurveyResultsPage');
+	//console.log('ionViewDidLoad SurveyResultsPage');
 	}
 
 	getSurveyData() {

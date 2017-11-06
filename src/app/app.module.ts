@@ -12,6 +12,7 @@ import { SurveyResultsPage } from '../pages/survey-results/survey-results';
 
 import { SurveyComponent } from '../components/survey/survey';
 import { SurveyProvider } from '../providers/survey/survey';
+import { ChartComponent } from '../components/chart/chart';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { SurveyProvider } from '../providers/survey/survey';
         HomePage,
         SurveyComponent,
         SurveyDetailsPage,
-		SurveyResultsPage
+        SurveyResultsPage,
+        ChartComponent
     ],
     imports: [
         BrowserModule,

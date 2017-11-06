@@ -17,7 +17,6 @@ export class HomePage {
                 public loadingCtrl: LoadingController) {
 
         this.defaultImages = [
-            "https://austparents.edu.au/2015/wp-content/uploads/surveys.jpg",
             "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
             "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png"
         ];
