@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { Chart } from 'chart.js';
 
 /**
@@ -14,16 +14,26 @@ import { Chart } from 'chart.js';
 export class ChartComponent {
 
   @ViewChild('chartCanvas') chartCanvas;
-	myChart: any;
+  myChart: any;
+  myChartData: any;
+  @Input()
+  set chartData(data: Array<Object>) {
+      this.myChartData = data;
+      //console.log(this.myChartData);
+      if (typeof this.myChartData != 'undefined') {
+        this.getLabels();
+        this.getValues();
+        this.drawChart('doughnut');
+      } 
+      
+  }
 
   constructor() {
-    console.log('Hello ChartComponent Component');
+    //console.log('Hello ChartComponent Component');
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit CharComponent');
-    this.drawChart('doughnut');
-    
+    //console.log('ngAfterViewInit CharComponent');    
   }
 
   drawChart(chartType) {
@@ -40,14 +50,24 @@ export class ChartComponent {
     }
   }
 
+  getLabels() {
+    let labels = this.myChartData.filter((v, i, a) => a.indexOf(v) === i); 
+    return labels;
+  }
+
+  getValues() {
+    let values = this.myChartData.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
+    return Object.keys(values).map(key => values[key]);
+  }
+
   createDoughnutChart() {
     this.myChart = new Chart(this.chartCanvas.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: this.getLabels(),
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Resultados',
+          data: this.getValues(),
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

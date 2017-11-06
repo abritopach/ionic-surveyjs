@@ -21,12 +21,14 @@ export class SurveyResultsPage {
 	results: any;
 	surveys: any;
 	keys: any;
+	charData: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
 			  public loadingCtrl: LoadingController) {
 
 		this.surveys = [];
 		this.surveyID = this.navParams.get('surveyID');
+		this.charData = [];
 
 		let loading = this.loadingCtrl.create({
             content: "Loading Survey results..."
@@ -36,11 +38,13 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.surveyID)
 			.then(data => {
 				this.results = JSON.parse(JSON.stringify(data));
+				//console.log(this.results);
 				if (this.results.length > 0) {
 					this.keys = Object.keys(this.results[0]);
 					this.keys = this.keys.splice(0, this.keys.length - 2);
 					//console.log(this.keys);
 					this.getSurveyData();
+					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 					loading.dismiss();
 				}
 			}
@@ -63,6 +67,19 @@ export class SurveyResultsPage {
 			}
 			this.surveys.push(json);
 		}
+	}
+
+	groupResultsByQuestion(index) {
+		let keys = this.keys;
+		let res = this.results.reduce(function(res, currentValue) {
+			//if (res.indexOf(currentValue[keys[index]]) === -1 ) {
+			  res.push(currentValue[keys[index]]);
+			//}
+			//console.log(res);
+			return res;
+		  }, []);
+		//console.log(res);
+		this.charData.push(res);
 	}
 
 }
