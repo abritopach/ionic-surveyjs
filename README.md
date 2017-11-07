@@ -11,6 +11,10 @@ This project shows you how to:
 
 ![App example](readme_resources/app.gif "App example")
 
+## Demo
+
+[Demo online](https://ionic-surveyjs.herokuapp.com/)
+
 ## Configuration
 
  1) To use your own surveys register in [SurveyJS](https://surveyjs.io/Account/Register)
