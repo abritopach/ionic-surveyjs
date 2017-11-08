@@ -14,7 +14,7 @@
 </ion-header>
       
 <ion-content padding>
-    <ion-row *ngFor="let data of chartData; let i = index">
+    <ion-row *ngFor="let data of chartData; let i = index" justify-content-center align-items-center>
         <h5>Pregunta P{{i + 1}}</h5>
         <chart [chartData]="data"></chart>
     </ion-row>
