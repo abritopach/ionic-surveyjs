@@ -9,7 +9,7 @@
 <ion-content padding>
 
     <ion-list>
-        <ion-item *ngFor="let survey of surveys; let i = index" (click)="selectedSurvey(survey)">
+        <ion-item *ngFor="let survey of surveys; let i = index" tappable (click)="selectedSurvey(survey)">
             <ion-thumbnail item-start>
                 <img [src]="survey.image">
             </ion-thumbnail>
