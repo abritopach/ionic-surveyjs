@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +15,8 @@ import { SurveyProvider } from '../providers/survey/survey';
 import { ChartComponent } from '../components/chart/chart';
 
 import { ChartsModalPage } from '../modals/charts-modal';
+
+import { TimingInterceptor } from '../interceptors/timing-interceptor';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,8 @@ import { ChartsModalPage } from '../modals/charts-modal';
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SurveyProvider
+        {provide: HTTP_INTERCEPTORS, useClass: TimingInterceptor, multi: true},
+        SurveyProvider
     ]
 })
 export class AppModule {}
