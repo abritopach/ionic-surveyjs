@@ -37,6 +37,7 @@ export class SurveyResultsPage {
         });
 
 		loading.present();
+		/*
 		this.surveyProvider.getSurveyResults(this.surveyID)
 			.then(data => {
 				this.results = JSON.parse(JSON.stringify(data));
@@ -49,6 +50,26 @@ export class SurveyResultsPage {
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 					loading.dismiss();
 				}
+			}
+		);
+		*/
+		this.surveyProvider.getSurveyResults(this.surveyID)
+		.subscribe(
+			data => {
+				this.results = JSON.parse(JSON.stringify(data.Data));
+				//console.log(this.results);
+				if (this.results.length > 0) {
+					this.keys = Object.keys(this.results[0]);
+					this.keys = this.keys.splice(0, this.keys.length - 2);
+					//console.log(this.keys);
+					this.getSurveyData();
+					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
+				}
+				loading.dismiss();
+			},
+			error => {
+				console.log(<any>error);
+				loading.dismiss();
 			}
 		);
   }

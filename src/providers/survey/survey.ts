@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
+// rxjs.
+import { Observable } from "rxjs/Observable";
+
 interface ItemsResponse {
     Data: string[];
 }
@@ -14,12 +17,17 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    accessKey: string = "e74dc097c56f4ecfae84fa3cda12d9d2";
+    private readonly accessKey: string = "e74dc097c56f4ecfae84fa3cda12d9d2";
 
-    constructor(public http: HttpClient) {
+    constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
     }
 
+    getActiveSurveys(): Observable<any>{
+        return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey);
+    }
+
+    /*
     getActiveSurveys() {
         return new Promise(resolve => {
             this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey)
@@ -41,7 +49,13 @@ export class SurveyProvider {
             );
           });
     }
-	
+    */
+
+    getSurveyResults(idSurvey: any): Observable<any>{
+        return this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
+    
+    /*
 	getSurveyResults(idSurvey: any) {
         return new Promise(resolve => {
             this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey)
@@ -61,6 +75,7 @@ export class SurveyProvider {
                 }
             );
           });
-	}
+    }
+    */
 
 }
