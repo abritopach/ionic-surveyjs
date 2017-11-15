@@ -14,7 +14,7 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    accessKey: string = "e74dc097c56f4ecfae84fa3cda12d9d2";
 
     constructor(public http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
