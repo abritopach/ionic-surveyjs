@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 
 // rxjs.
 import { Observable } from "rxjs/Observable";
@@ -17,10 +17,34 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly accessKey: string = "e74dc097c56f4ecfae84fa3cda12d9d2";
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
+    }
+
+    testProgressRequest() {
+        const req = new HttpRequest('GET', 'https://jsonplaceholder.typicode.com/photos', {
+            reportProgress: true,
+          });
+        this.http.request(req).subscribe(event => {
+            // Via this API, you get access to the raw event stream.
+            // Look for upload progress events.
+            if (event.type === HttpEventType.UploadProgress) {
+                // This is an upload progress event. Compute and show the % done:
+                const percentDone = Math.round(100 * event.loaded / event.total);
+                console.log(`File is ${percentDone}% uploaded.`);
+              } else if (event instanceof HttpResponse) {
+                console.log('File is completely uploaded!');
+              }
+            if (event.type === HttpEventType.DownloadProgress) {
+                const kbLoaded = Math.round(event.loaded / 1024);
+                console.log(`Download in progress! ${ kbLoaded }Kb loaded`);
+            }
+            if (event.type === HttpEventType.Response) {
+                console.log('Data received', event.body);
+            }
+          });
     }
 
     getActiveSurveys(): Observable<any>{

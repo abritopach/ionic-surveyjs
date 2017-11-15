@@ -39,6 +39,7 @@ export class HomePage {
             }
         );
         */
+
         this.surveyProvider.getActiveSurveys()
             .subscribe(
                 data => {
