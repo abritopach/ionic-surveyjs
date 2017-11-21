@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { SurveyProvider } from './survey';
@@ -43,7 +43,8 @@ describe('Service: SurveyProvider', () => {
 		let dataError, dataResponse;
 		// Act.
 		service.getActiveSurveys().subscribe((response) => {
-			dataResponse = response[0];
+			console.log(response.results);
+			dataResponse = response.results;
 			}, (error) => {
 				dataError = error;
 		});
@@ -55,5 +56,32 @@ describe('Service: SurveyProvider', () => {
 		expect(req.request.method).toEqual('GET');
 		expect(dataError).toBeUndefined();
 	}); 
+
+	it('should return an error', () => {
+		// Arrange.
+		let dataError, dataResponse: any[];
+		// Act.
+		service.getActiveSurveys()
+		.subscribe((response) => {
+		  dataResponse = response['results'];
+		}, (error) => {
+		  dataError = error;
+		});
+		httpMock.expectOne(`https://dxsurvey.com/api/MySurveys/getActive?accessKey=` + accessKey)
+		.error(new ErrorEvent('error'));
+		// Assert.
+		expect(dataResponse).toBeUndefined();
+		expect(dataError).toBeDefined();
+	});
+
+	it('should return all active surveys', () => {
+		service.getActiveSurveys().subscribe(result => expect(result.length).toBeGreaterThan(0)); 
+	});
+	   
+	it('should return all active surveys promise', async(() => {
+		return service.getActiveSurveys().toPromise().then((result) => {         
+			expect(result.length).toBeGreaterThan(0);
+		});       
+	}));
 
 });
