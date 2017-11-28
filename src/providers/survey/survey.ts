@@ -17,7 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
+    private readonly accessKey: string = "41713752b17c45868c19879bc37b8ccb";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -48,7 +49,7 @@ export class SurveyProvider {
     }
 
     getActiveSurveys(): Observable<any>{
-        return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey);
     }
 
     /*
