@@ -4,22 +4,21 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { SurveyProvider } from '../../providers/survey/survey';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
 
+import { SurveyModel } from "../../models/survet.model";
+import { Survey } from 'survey-angular';
+
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
 
-    surveys: any;
+    surveys: SurveyModel[];
     defaultImages: any;
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController) {
 
-        this.defaultImages = [
-            "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
-            "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png"
-        ];
 
         let loading = this.loadingCtrl.create({
             content: "Loading Surveys..."
@@ -44,10 +43,8 @@ export class HomePage {
             .subscribe(
                 data => {
                     //console.log(data);
-                    this.surveys = data;
-                    for (var i = 0; i < this.surveys.length; i++) {
-                        this.surveys[i].image = this.defaultImages[this.getRandomNumber()];
-                    }
+                    //this.surveys = data;
+                    this.surveys = SurveyModel.fromJSONArray(data);
                     loading.dismiss();
                 },
                 error => {
@@ -63,7 +60,4 @@ export class HomePage {
         });
     }
 
-    getRandomNumber() {
-        return Math.floor(Math.random() * this.defaultImages.length);
-    }
 }

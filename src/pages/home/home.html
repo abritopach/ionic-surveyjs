@@ -11,7 +11,7 @@
     <ion-list>
         <ion-item *ngFor="let survey of surveys; let i = index" tappable (click)="selectedSurvey(survey)">
             <ion-thumbnail item-start>
-                <img [src]="survey.image">
+                <img [src]="survey.Image">
             </ion-thumbnail>
             <h2>{{survey.Name}}</h2>
             <p>{{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>
