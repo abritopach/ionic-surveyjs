@@ -4,7 +4,6 @@ import { HttpClient, HttpErrorResponse, HttpRequest, HttpEventType, HttpResponse
 // rxjs.
 import { Observable } from "rxjs/Observable";
 
-import { SurveyModel } from "../../models/survet.model";
 import { Survey } from 'survey-angular';
 
 interface ItemsResponse {

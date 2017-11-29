@@ -1,5 +1,3 @@
-import { Survey } from "survey-angular";
-
 export class SurveyModel {
     AllowAccessResult: boolean;
     CreatedAt: string;

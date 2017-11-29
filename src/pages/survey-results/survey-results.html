@@ -32,11 +32,11 @@
 					<b>P{{i + 1}}</b>
 			</ion-col>
 		</ion-row>
-		<ion-row *ngFor="let survey of surveys">
-			<ion-col col-2 *ngFor="let value of survey.values">
-					{{value}}
+		<ion-row *ngFor="let result of results">
+			<ion-col col-2 *ngFor="let userAnswer of result.userAnswers">
+					{{userAnswer.value}}
 			</ion-col>
-			<ion-col col-2>{{survey.HappendAt | date: 'dd/MM/yyyy H:mm'}}</ion-col>
+			<ion-col col-2>{{result.happendAt | date: 'dd/MM/yyyy H:mm'}}</ion-col>
 			<!--<ion-col col-2>{{survey.IPAddress}}</ion-col>-->
 		</ion-row>
 	</ion-grid>

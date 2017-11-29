@@ -5,6 +5,8 @@ import { SurveyProvider } from '../../providers/survey/survey';
 
 import { ChartsModalPage } from '../../modals/charts-modal';
 
+import { SurveyResultsModel } from '../../models/survey.results.model';
+
 /**
  * Generated class for the SurveyResultsPage page.
  *
@@ -20,10 +22,11 @@ import { ChartsModalPage } from '../../modals/charts-modal';
 export class SurveyResultsPage {
 
 	surveyID : string;
-	results: any;
+	//results: any;
 	surveys: any;
 	keys: any;
 	charData: any;
+	results: SurveyResultsModel[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
 			  public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
@@ -57,12 +60,15 @@ export class SurveyResultsPage {
 		.subscribe(
 			data => {
 				this.results = JSON.parse(JSON.stringify(data.Data));
+				console.log(this.results);
+				//this.results = SurveyResultsModel.fromJSONArray(data.Data);
 				//console.log(this.results);
 				if (this.results.length > 0) {
 					this.keys = Object.keys(this.results[0]);
 					this.keys = this.keys.splice(0, this.keys.length - 2);
 					//console.log(this.keys);
-					this.getSurveyData();
+					//this.getSurveyData();
+					// Format Data to chart visualization.
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 				}
 				loading.dismiss();
@@ -78,6 +84,7 @@ export class SurveyResultsPage {
 	//console.log('ionViewDidLoad SurveyResultsPage');
 	}
 
+	/*
 	getSurveyData() {
 		let json;
 		for (let i = 0; i < this.results.length; i++) {
@@ -90,7 +97,9 @@ export class SurveyResultsPage {
 			}
 			this.surveys.push(json);
 		}
+		console.log(this.surveys);
 	}
+	*/
 
 	groupResultsByQuestion(index) {
 		let keys = this.keys;

@@ -4,7 +4,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { SurveyProvider } from '../../providers/survey/survey';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
 
-import { SurveyModel } from "../../models/survet.model";
+import { SurveyModel } from "../../models/survey.model";
 import { Survey } from 'survey-angular';
 
 @Component({
