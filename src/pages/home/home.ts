@@ -26,19 +26,6 @@ export class HomePage {
 
         loading.present();
 
-        /*
-        this.surveyProvider.getActiveSurveys()
-            .then(data => {
-                //console.log(data);
-                this.surveys = data;
-                for (var i = 0; i < this.surveys.length; i++) {
-                    this.surveys[i].image = this.defaultImages[this.getRandomNumber()];
-                }
-                loading.dismiss();
-            }
-        );
-        */
-
         this.surveyProvider.getActiveSurveys()
             .subscribe(
                 data => {

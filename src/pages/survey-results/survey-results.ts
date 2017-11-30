@@ -49,8 +49,7 @@ export class SurveyResultsPage {
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
 				//console.log(this.results);
 				if (this.results.length > 0) {
-					this.keys = Object.keys(this.results[0]);
-					this.keys = this.keys.splice(0, this.keys.length - 2);
+					this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
 					//console.log(this.keys);
 					// Format Data to chart visualization.
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
