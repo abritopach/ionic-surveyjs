@@ -22,11 +22,11 @@ import { SurveyResultsModel } from '../../models/survey.results.model';
 export class SurveyResultsPage {
 
 	surveyID : string;
-	//results: any;
 	surveys: any;
 	keys: any;
 	charData: any;
-	results: SurveyResultsModel[] = [];
+	results: any;
+	surveyResults: SurveyResultsModel[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
 			  public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
@@ -40,34 +40,18 @@ export class SurveyResultsPage {
         });
 
 		loading.present();
-		/*
-		this.surveyProvider.getSurveyResults(this.surveyID)
-			.then(data => {
-				this.results = JSON.parse(JSON.stringify(data));
-				//console.log(this.results);
-				if (this.results.length > 0) {
-					this.keys = Object.keys(this.results[0]);
-					this.keys = this.keys.splice(0, this.keys.length - 2);
-					//console.log(this.keys);
-					this.getSurveyData();
-					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
-					loading.dismiss();
-				}
-			}
-		);
-		*/
+		
 		this.surveyProvider.getSurveyResults(this.surveyID)
 		.subscribe(
 			data => {
 				this.results = JSON.parse(JSON.stringify(data.Data));
-				console.log(this.results);
-				//this.results = SurveyResultsModel.fromJSONArray(data.Data);
+				//console.log(this.results);
+				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
 				//console.log(this.results);
 				if (this.results.length > 0) {
 					this.keys = Object.keys(this.results[0]);
 					this.keys = this.keys.splice(0, this.keys.length - 2);
 					//console.log(this.keys);
-					//this.getSurveyData();
 					// Format Data to chart visualization.
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 				}
@@ -80,26 +64,9 @@ export class SurveyResultsPage {
 		);
   }
 
-  ionViewDidLoad() {
-	//console.log('ionViewDidLoad SurveyResultsPage');
+  	ionViewDidLoad() {
+		//console.log('ionViewDidLoad SurveyResultsPage');
 	}
-
-	/*
-	getSurveyData() {
-		let json;
-		for (let i = 0; i < this.results.length; i++) {
-			json = {"HappendAt": "", "IPAddress": "", "values": []};
-			for(let key in this.results[i]) {
-				let value = this.results[i][key];
-				//console.log("key: " + key + " value: " + value); 
-				if ((key == "HappendAt") || (key == "IPAddress")) json[key] = value.toString();
-				else json.values.push(value.toString());
-			}
-			this.surveys.push(json);
-		}
-		console.log(this.surveys);
-	}
-	*/
 
 	groupResultsByQuestion(index) {
 		let keys = this.keys;
@@ -115,7 +82,7 @@ export class SurveyResultsPage {
 	}
 
 	openModal() {
-		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': this.charData});
+		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': this.charData, 'questionsText': this.keys});
 		modal.present();
 	}
 

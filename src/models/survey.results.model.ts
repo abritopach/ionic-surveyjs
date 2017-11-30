@@ -20,7 +20,7 @@ export class SurveyResultsModel {
     constructor(obj: any) {
         this.happendAt = obj["HappendAt"];
         this.iPAddress = obj["IPAddress"];
-        this.userAnswers = SurveyResultsModel.getUsersAnswers(obj);
+        this.userAnswers = SurveyResultsModel.setUsersAnswers(obj);
     }
 
     // New static method.
@@ -29,7 +29,7 @@ export class SurveyResultsModel {
             new SurveyResultsModel(obj)
     )}
 
-    static getUsersAnswers(obj): UserAnswerModel[] {
+    static setUsersAnswers(obj): UserAnswerModel[] {
         let index = 1;
         let usersAnswers: UserAnswerModel[] = [];
         for(let key in obj) {

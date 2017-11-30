@@ -10,6 +10,7 @@ import { ModalController, Platform, NavParams, ViewController } from 'ionic-angu
 export class ChartsModalPage {
 
     chartData: any;
+    questionsText: any;
   
     constructor(
       public platform: Platform,
@@ -17,6 +18,7 @@ export class ChartsModalPage {
       public viewCtrl: ViewController
     ) {
         this.chartData = this.params.get('chartData');
+        this.questionsText = this.params.get('questionsText');
     }
   
     dismiss() {
