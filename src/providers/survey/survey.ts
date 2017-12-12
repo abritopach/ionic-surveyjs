@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 
 // rxjs.
 import { Observable } from "rxjs/Observable";
-
-import { Survey } from 'survey-angular';
 
 interface ItemsResponse {
     Data: string[];

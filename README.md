@@ -8,6 +8,7 @@ This project shows you how to:
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show survey details.
 	* Get survey results.
+    * Intercepting all requests errors.
 
 ![App example](readme_resources/app.gif "App example")
 

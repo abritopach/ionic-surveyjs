@@ -1,5 +1,3 @@
-import { Survey } from "survey-angular";
-
 export class UserAnswerModel {
     idQuestion: string;
     textQuestion: string;
