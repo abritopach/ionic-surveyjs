@@ -17,8 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
+    private readonly accessKey: string = "425fe2280da8451bad033b8bde4919fb";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -48,59 +48,19 @@ export class SurveyProvider {
           });
     }
 
-    getActiveSurveys(): Observable<any>{
+    // Returns the list of active surveys.
+    getActiveSurveys(): Observable<any> {
         return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey);
     }
 
-    /*
-    getActiveSurveys() {
-        return new Promise(resolve => {
-            this.http.get('https://dxsurvey.com/api/MySurveys/getActive?accessKey=' + this.accessKey)
-            .subscribe(
-                data => {
-					console.log(data);
-                    resolve(data);
-                },
-                (err: HttpErrorResponse) => {
-                    if (err.error instanceof Error) {
-                      // A client-side or network error occurred. Handle it accordingly.
-                      console.log('An error occurred:', err.error.message);
-                    } else {
-                      // The backend returned an unsuccessful response code.
-                      // The response body may contain clues as to what went wrong,
-                      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-                    }
-                }
-            );
-          });
-    }
-    */
-
-    getSurveyResults(idSurvey: any): Observable<any>{
+    // Returns survey results.
+    getSurveyResults(idSurvey: any): Observable<any> {
         return this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey);
     }
-    
-    /*
-	getSurveyResults(idSurvey: any) {
-        return new Promise(resolve => {
-            this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey)
-            .subscribe(
-                data => {
-                    resolve(data.Data);
-                },
-                (err: HttpErrorResponse) => {
-                    if (err.error instanceof Error) {
-                      // A client-side or network error occurred. Handle it accordingly.
-                      console.log('An error occurred:', err.error.message);
-                    } else {
-                      // The backend returned an unsuccessful response code.
-                      // The response body may contain clues as to what went wrong,
-                      console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-                    }
-                }
-            );
-          });
-    }
-    */
 
+    // Delete a survey by it's id. You will not be able to restore this survey. The survey results become inaccessible.
+    deleteSurvey(idSurvey: any): Observable<any> {
+        return this.http.get('https://dxsurvey.com/api/MySurveys/delete/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
+    
 }
