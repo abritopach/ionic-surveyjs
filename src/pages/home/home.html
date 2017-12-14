@@ -19,7 +19,11 @@
                 <!--<button ion-button clear item-end>View</button>-->
             </ion-item>
             <ion-item-options side="right">
-                <button ion-button color="primary">
+                <button ion-button color="primary" (click)="onClickEditSurvey(survey)">
+                    <ion-icon name="create"></ion-icon>
+                    Edit
+                </button>
+                <button ion-button color="danger" (click)="onClickDeleteSurvey(survey)">
                     <ion-icon name="trash"></ion-icon>
                     Delete
                 </button>

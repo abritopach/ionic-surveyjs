@@ -16,7 +16,9 @@ export class SurveyModel {
 
     defaultImages = [
         "https://flexsurveys.com/wp-content/uploads/FlexSurveysEmployeeEngagementSurvey-Trans.png",
-        "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png"
+        "https://static.e-encuesta.com/wp-content/uploads/satisfaccion-cliente-v6.png",
+        "http://www.redcresearch.ie/wp-content/uploads/2015/12/14.png",
+        "http://www.redcresearch.ie/wp-content/uploads/2015/12/30.png"
     ];
 
     // Copy constructor.
@@ -43,7 +45,7 @@ export class SurveyModel {
     )}
 
     static getRandomNumber() {
-        return Math.floor(Math.random() * 2);
+        return Math.floor(Math.random() * 4);
     }
 
 }
