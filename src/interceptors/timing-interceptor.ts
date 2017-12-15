@@ -38,7 +38,7 @@ export class TimingInterceptor implements HttpInterceptor {
             // The response body may contain clues as to what went wrong.
             console.log(`Backend returned code ${err.status}, body was:`, err.error);
         }
-        this.presentAlert(err.message);
+        //this.presentAlert(err.message);
     }
 
     presentAlert(message: string) {

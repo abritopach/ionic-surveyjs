@@ -17,8 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
+    private readonly accessKey: string = "687a3a15d6ac43d98e2a570667c89cc9";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -61,6 +61,12 @@ export class SurveyProvider {
     // Delete a survey by it's id. You will not be able to restore this survey. The survey results become inaccessible.
     deleteSurvey(idSurvey: any): Observable<any> {
         return this.http.get('https://dxsurvey.com/api/MySurveys/delete/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
+
+    // Change the survey name.
+    changeSurveyName(idSurvey, newName): Observable<any> {
+        console.log('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
+        return this.http.get('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
     }
     
 }
