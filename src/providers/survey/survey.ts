@@ -17,8 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
-    private readonly accessKey: string = "687a3a15d6ac43d98e2a570667c89cc9";
+    private readonly ownerId: string = encodeURI("ownerId");
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
