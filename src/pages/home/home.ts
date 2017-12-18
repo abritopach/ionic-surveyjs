@@ -13,12 +13,16 @@ import { SurveyModel } from "../../models/survey.model";
 export class HomePage {
 
     surveys: SurveyModel[];
+    archiveSurveys: SurveyModel[];
     defaultImages: any;
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+        this.getActiveSurveys();
+        this.getArchiveSurveys();
+    }
 
-
+    getActiveSurveys() {
         let loading = this.loadingCtrl.create({
             content: "Loading Surveys..."
         });
@@ -36,8 +40,20 @@ export class HomePage {
                 error => {
                     console.log(<any>error);
                     loading.dismiss();
-                }
-            );
+            }
+        );
+    }
+
+    getArchiveSurveys() {
+        this.surveyProvider.getArchiveSurveys()
+            .subscribe(
+                data => {
+                    this.archiveSurveys = SurveyModel.fromJSONArray(data);
+                },
+                error => {
+                    console.log(<any>error);
+            }
+        );
     }
 
     selectedSurvey(survey) {
