@@ -17,8 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
-    private readonly accessKey: string = "ed25dca0e09b41bca99da7d83d7333eb";
+    private readonly ownerId: string = encodeURI("ownerId");
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -72,6 +72,11 @@ export class SurveyProvider {
     changeSurveyName(idSurvey, newName): Observable<any> {
         console.log('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
         return this.http.get('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
+    }
+
+    // Restore an archive survey by it's id.
+    restoreSurvey(idSurvey): Observable<any> {
+        return this.http.get('https://dxsurvey.com/api/MySurveys/restore/' + idSurvey + '?accessKey=' + this.accessKey);
     }
     
 }

@@ -7,8 +7,9 @@ This project shows you how to:
     * Integrate SurveyJS in Ionic APP.
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
-    * Delete survey.
+    * Delete survey using SurveyJS API dxsurvey.com/api (get request).
     * Change survey name using SurveyJS API dxsurvey.com/api (get request).
+     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Show survey details.
 	* Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Intercepting all requests errors.

@@ -41,7 +41,11 @@
                 <p>{{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>
             </ion-item>
             <ion-item-options side="right">
-                <button ion-button color="primary" (click)="onClickEditSurvey(survey)">
+                <button ion-button color="primary" (click)="onClickActivateSurvey(survey)">
+                    <ion-icon name="unlock"></ion-icon>
+                    Activate
+                </button>
+                <button ion-button color="secondary" (click)="onClickEditSurvey(survey)">
                     <ion-icon name="create"></ion-icon>
                     Edit
                 </button>

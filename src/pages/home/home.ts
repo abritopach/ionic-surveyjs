@@ -62,6 +62,11 @@ export class HomePage {
         });
     }
 
+    onClickActivateSurvey(survey) {
+        console.log("onCLickActivateSurvey", survey);
+        this.activateSurvey(survey);
+    }
+
     onClickEditSurvey(survey) {
         console.log("onCLickEditSurvey", survey);
         this.showPrompt(survey);
@@ -159,6 +164,27 @@ export class HomePage {
             error => {
                 console.log(<any>error);
                 if (error.status == 200) survey.Name = newName;
+                loading.dismiss();
+            }
+        );
+    }
+
+    activateSurvey(survey) {
+        let loading = this.loadingCtrl.create({
+            content: "Activating Survey..."
+        });
+
+        loading.present();
+
+        this.surveyProvider.restoreSurvey(survey.Id)
+        .subscribe(
+            data => {
+                console.log(data);
+                loading.dismiss();
+            },
+            error => {
+                console.log(<any>error);
+                if (error.status == 200) this.surveys.push(survey);
                 loading.dismiss();
             }
         );
