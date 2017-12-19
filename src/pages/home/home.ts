@@ -32,7 +32,7 @@ export class HomePage {
         this.surveyProvider.getActiveSurveys()
             .subscribe(
                 data => {
-                    //console.log(data);
+                    console.log(data);
                     //this.surveys = data;
                     this.surveys = SurveyModel.fromJSONArray(data);
                     loading.dismiss();
@@ -48,6 +48,7 @@ export class HomePage {
         this.surveyProvider.getArchiveSurveys()
             .subscribe(
                 data => {
+                    console.log(data);
                     this.archiveSurveys = SurveyModel.fromJSONArray(data);
                 },
                 error => {
@@ -63,18 +64,18 @@ export class HomePage {
     }
 
     onClickActivateSurvey(survey) {
-        console.log("onCLickActivateSurvey", survey);
-        this.activateSurvey(survey);
+        console.log("onClickActivateSurvey", survey);
+        this.presentAlert(survey, 'activate');
     }
 
     onClickEditSurvey(survey) {
-        console.log("onCLickEditSurvey", survey);
+        console.log("onClickEditSurvey", survey);
         this.showPrompt(survey);
     }
 
-    onClickDeleteSurvey(survey) {
-        console.log("onCLickDeleteSurvey", survey);
-        this.presentAlert(survey);
+    onClickDeleteSurvey(survey, type) {
+        console.log("onClickDeleteSurvey", survey);
+        this.presentAlert(survey, 'delete');
     }
 
     deleteSurvey(survey) {
@@ -92,15 +93,20 @@ export class HomePage {
             },
             error => {
                 console.log(<any>error);
+                if (error.status == 200) {
+                    if ( survey.IsArchived === false) this.surveys = this.removeElement(survey.Name, this.surveys);
+                    else this.archiveSurveys = this.removeElement(survey.Name, this.archiveSurveys);
+                }
                 loading.dismiss();
             }
         );
     }
 
-    presentAlert(survey) {
+    presentAlert(survey, operation) {
+        let options = this.alertConfig(operation);
         let alert = this.alertCtrl.create({
-          title: 'Delete Survey',
-          subTitle: '¿Are you sure to delete the survey?',
+          title: options.title,
+          subTitle: options.subTitle,
           buttons: [
             {
                 text: 'Cancel',
@@ -110,7 +116,8 @@ export class HomePage {
             {
               text: 'Accept',
               handler: () => {
-                this.deleteSurvey(survey);
+                if (operation == 'delete') this.deleteSurvey(survey);
+                if (operation == 'activate') this.activateSurvey(survey);
               }
             }
           ]
@@ -184,10 +191,30 @@ export class HomePage {
             },
             error => {
                 console.log(<any>error);
-                if (error.status == 200) this.surveys.push(survey);
+                if (error.status == 200) {
+                    this.surveys.push(survey);
+                    this.archiveSurveys = this.removeElement(survey.Name, this.archiveSurveys);
+                }
                 loading.dismiss();
             }
         );
+    }
+
+    removeElement(name, surveys) {
+        return surveys.filter(function(e) {
+            return e.Name !== name;
+        });
+    }
+
+    alertConfig(operation) {
+        let options = {title: "Title", subTitle: "Subtitle"};
+        if (operation == 'delete') {
+            options = {title: 'Delete Survey', subTitle: '¿Are you sure to delete the survey?'};
+        } 
+        else if (operation == 'activate') {
+            options = {title: 'Activate Survey', subTitle: '¿Are you sure to activate the survey?'};
+        } 
+        return options;
     }
 
 }
