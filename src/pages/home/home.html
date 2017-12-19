@@ -19,7 +19,11 @@
                 <!--<button ion-button clear item-end>View</button>-->
             </ion-item>
             <ion-item-options side="right">
-                <button ion-button color="primary" (click)="onClickEditSurvey(survey)">
+                <button ion-button color="primary" (click)="onClickArchiveSurvey(survey)">
+                    <ion-icon name="lock"></ion-icon>
+                    Archive
+                </button>
+                <button ion-button color="secondary" (click)="onClickEditSurvey(survey)">
                     <ion-icon name="create"></ion-icon>
                     Edit
                 </button>

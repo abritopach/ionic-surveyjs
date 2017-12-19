@@ -32,7 +32,7 @@ export class HomePage {
         this.surveyProvider.getActiveSurveys()
             .subscribe(
                 data => {
-                    console.log(data);
+                    //console.log(data);
                     //this.surveys = data;
                     this.surveys = SurveyModel.fromJSONArray(data);
                     loading.dismiss();
@@ -48,7 +48,7 @@ export class HomePage {
         this.surveyProvider.getArchiveSurveys()
             .subscribe(
                 data => {
-                    console.log(data);
+                    //console.log(data);
                     this.archiveSurveys = SurveyModel.fromJSONArray(data);
                 },
                 error => {
@@ -66,6 +66,11 @@ export class HomePage {
     onClickActivateSurvey(survey) {
         console.log("onClickActivateSurvey", survey);
         this.presentAlert(survey, 'activate');
+    }
+
+    onClickArchiveSurvey(survey) {
+        console.log("onClickArchiveSurvey", survey);
+        this.presentAlert(survey, 'archive');
     }
 
     onClickEditSurvey(survey) {
@@ -118,6 +123,7 @@ export class HomePage {
               handler: () => {
                 if (operation == 'delete') this.deleteSurvey(survey);
                 if (operation == 'activate') this.activateSurvey(survey);
+                if (operation == 'archive') this.archiveSurvey(survey);
               }
             }
           ]
@@ -200,6 +206,30 @@ export class HomePage {
         );
     }
 
+    archiveSurvey(survey) {
+        let loading = this.loadingCtrl.create({
+            content: "Archiving Survey..."
+        });
+
+        loading.present();
+
+        this.surveyProvider.archiveSurvey(survey.Id)
+        .subscribe(
+            data => {
+                console.log(data);
+                loading.dismiss();
+            },
+            error => {
+                console.log(<any>error);
+                if (error.status == 200) {
+                    this.archiveSurveys.push(survey);
+                    this.surveys = this.removeElement(survey.Name, this.surveys);
+                }
+                loading.dismiss();
+            }
+        );
+    }
+
     removeElement(name, surveys) {
         return surveys.filter(function(e) {
             return e.Name !== name;
@@ -213,6 +243,9 @@ export class HomePage {
         } 
         else if (operation == 'activate') {
             options = {title: 'Activate Survey', subTitle: '¿Are you sure to activate the survey?'};
+        } 
+        else if (operation == 'archive') {
+            options = {title: 'Archive Survey', subTitle: '¿Are you sure to archive the survey?'};
         } 
         return options;
     }

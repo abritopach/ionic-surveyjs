@@ -17,8 +17,8 @@ interface ItemsResponse {
 @Injectable()
 export class SurveyProvider {
 
-    private readonly ownerId: string = encodeURI("adrbrpa1988@gmail.com");
-    private readonly accessKey: string = "ed25dca0e09b41bca99da7d83d7333eb";
+    private readonly ownerId: string = encodeURI("ownerId");
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -77,6 +77,11 @@ export class SurveyProvider {
     // Restore an archive survey by it's id.
     restoreSurvey(idSurvey): Observable<any> {
         return this.http.get('https://dxsurvey.com/api/MySurveys/restore/' + idSurvey + '?accessKey=' + this.accessKey);
+    }
+
+    // Archive the survey by it's id. All survey results will be still accessible. You have to delete a survey to remove the access to it's results.
+    archiveSurvey(idSurvey) : Observable<any> {
+        return this.http.get('https://dxsurvey.com/api/MySurveys/archive/' + idSurvey + '?accessKey=' + this.accessKey);
     }
     
 }

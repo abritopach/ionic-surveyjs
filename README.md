@@ -9,6 +9,7 @@ This project shows you how to:
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
     * Delete survey using SurveyJS API dxsurvey.com/api (get request).
     * Change survey name using SurveyJS API dxsurvey.com/api (get request).
+    * Archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Show survey details.
 	* Get survey results using SurveyJS API dxsurvey.com/api (get request).
