@@ -104,8 +104,8 @@ export class HomePage {
             error => {
                 console.log(<any>error);
                 if (error.status == 200) {
-                    if ( survey.IsArchived === false) this.surveys = this.removeElement(survey.Name, this.surveys);
-                    else this.archiveSurveys = this.removeElement(survey.Name, this.archiveSurveys);
+                    if ( survey.IsArchived === false) this.surveys = this.removeElement(survey.Id, this.surveys);
+                    else this.archiveSurveys = this.removeElement(survey.Id, this.archiveSurveys);
                 }
                 loading.dismiss();
             }
@@ -227,7 +227,7 @@ export class HomePage {
                 console.log(<any>error);
                 if (error.status == 200) {
                     this.surveys.push(survey);
-                    this.archiveSurveys = this.removeElement(survey.Name, this.archiveSurveys);
+                    this.archiveSurveys = this.removeElement(survey.Id, this.archiveSurveys);
                 }
                 loading.dismiss();
             }
@@ -251,16 +251,16 @@ export class HomePage {
                 console.log(<any>error);
                 if (error.status == 200) {
                     this.archiveSurveys.push(survey);
-                    this.surveys = this.removeElement(survey.Name, this.surveys);
+                    this.surveys = this.removeElement(survey.Id, this.surveys);
                 }
                 loading.dismiss();
             }
         );
     }
 
-    removeElement(name, surveys) {
+    removeElement(surveyId, surveys) {
         return surveys.filter(function(e) {
-            return e.Name !== name;
+            return e.Id !== surveyId;
         });
     }
 
