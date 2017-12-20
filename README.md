@@ -13,6 +13,7 @@ This project shows you how to:
     * Restore an archive survey by it's id using SurveyJS API dxsurvey.com/api (get request). 
     * Show survey details.
 	* Get survey results using SurveyJS API dxsurvey.com/api (get request).
+    * Show survey results using Chart.js (http://www.chartjs.org/).
     * Intercepting all requests errors.
 
 ![App example](readme_resources/app.gif "App example")

@@ -15,7 +15,7 @@
                     <img [src]="survey.Image">
                 </ion-thumbnail>
                 <h2>{{survey.Name}}</h2>
-                <p>{{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>
+                <p><ion-icon name="stopwatch"></ion-icon> {{survey.CreatedAt | date: 'dd/MM/yyyy H:mm'}}</p>
                 <!--<button ion-button clear item-end>View</button>-->
             </ion-item>
             <ion-item-options side="right">
