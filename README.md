@@ -5,6 +5,7 @@ Sample project that shows how to integrate SurveyJS in Ionic APP.
 This project shows you how to:
 
     * Integrate SurveyJS in Ionic APP.
+    * Create new Survey using SurveyJS API dxsurvey.com/api (get request).
     * Show list with active surveys using SurveyJS API dxsurvey.com/api (get request).
     * Show list with archive surveys using SurveyJS API dxsurvey.com/api (get request).
     * Delete survey using SurveyJS API dxsurvey.com/api (get request).

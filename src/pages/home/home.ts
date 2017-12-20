@@ -5,6 +5,7 @@ import { SurveyProvider } from '../../providers/survey/survey';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
 
 import { SurveyModel } from "../../models/survey.model";
+import { Survey } from 'survey-angular';
 
 @Component({
     selector: 'page-home',
@@ -61,6 +62,10 @@ export class HomePage {
         this.navCtrl.push(SurveyDetailsPage, {
             surveyID: survey.Id
         });
+    }
+
+    onClickCreateSurvey() {
+        this.presentAlert(null, 'create');
     }
 
     onClickActivateSurvey(survey) {
@@ -124,6 +129,7 @@ export class HomePage {
                 if (operation == 'delete') this.deleteSurvey(survey);
                 if (operation == 'activate') this.activateSurvey(survey);
                 if (operation == 'archive') this.archiveSurvey(survey);
+                if (operation == "create") this.createSurvey("New Survey :)");
               }
             }
           ]
@@ -177,6 +183,28 @@ export class HomePage {
             error => {
                 console.log(<any>error);
                 if (error.status == 200) survey.Name = newName;
+                loading.dismiss();
+            }
+        );
+    }
+
+    createSurvey(name) {
+        let loading = this.loadingCtrl.create({
+            content: "Creating Survey..."
+        });
+
+        loading.present();
+
+        this.surveyProvider.createSurvey(name)
+        .subscribe(
+            data => {
+                //console.log(data);
+                let survey: SurveyModel = new SurveyModel(data);
+                this.surveys.unshift(survey);
+                loading.dismiss();
+            },
+            error => {
+                console.log(<any>error);
                 loading.dismiss();
             }
         );
@@ -237,17 +265,14 @@ export class HomePage {
     }
 
     alertConfig(operation) {
-        let options = {title: "Title", subTitle: "Subtitle"};
-        if (operation == 'delete') {
-            options = {title: 'Delete Survey', subTitle: '¿Are you sure to delete the survey?'};
-        } 
-        else if (operation == 'activate') {
-            options = {title: 'Activate Survey', subTitle: '¿Are you sure to activate the survey?'};
-        } 
-        else if (operation == 'archive') {
-            options = {title: 'Archive Survey', subTitle: '¿Are you sure to archive the survey?'};
-        } 
-        return options;
+        let options = {
+            delete: {title: 'Delete Survey', subTitle: '¿Are you sure to delete the survey?'},
+            activate: {title: 'Activate Survey', subTitle: '¿Are you sure to activate the survey?'},
+            archive: {title: 'Archive Survey', subTitle: '¿Are you sure to archive the survey?'},
+            create: {title: 'Create Survey', subTitle: '¿Are you sure to create new survey?'}
+
+        }
+        return options[operation];
     }
 
 }

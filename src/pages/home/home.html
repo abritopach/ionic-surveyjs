@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-fab top right edge>
+        <button ion-fab mini color="danger" (click)="onClickCreateSurvey()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
     <h5>Active surveys</h5>
     <ion-list>
         <ion-item-sliding *ngFor="let survey of surveys; let i = index">
