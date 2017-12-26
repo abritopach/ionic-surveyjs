@@ -18,4 +18,11 @@ page-home {
   }
   h5::before {margin-right: .3em}
   h5::after {margin-left: .3em}
+
+  .error-message {
+    background-color: map-get($colors, danger);
+    color: #fff;
+    border: 1px solid #c0392b;
+    padding: 10px;
+  }
 }

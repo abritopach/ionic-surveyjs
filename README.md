@@ -16,6 +16,7 @@ This project shows you how to:
 	* Get survey results using SurveyJS API dxsurvey.com/api (get request).
     * Show survey results using Chart.js (http://www.chartjs.org/).
     * Intercepting all requests errors.
+    * Added Timeout for HTTP requests to the API, and then throw an error if the request fails.
 
 ![App example](readme_resources/app.gif "App example")
 

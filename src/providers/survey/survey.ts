@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 
+import { timeoutWith } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
+
 // rxjs.
 import { Observable } from "rxjs/Observable";
 
@@ -50,17 +53,23 @@ export class SurveyProvider {
 
     // Returns the list of active surveys.
     getActiveSurveys(): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/getActive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to get active surveys.')))
+        );
     }
 
     // Returns the list of archive surveys.
     getArchiveSurveys(): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/getArchive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/getArchive?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to get archive surveys.')))
+        );
     }
 
     // Returns survey results.
     getSurveyResults(idSurvey: any): Observable<any> {
-        return this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey);
+        return this.http.get<ItemsResponse>('https://dxsurvey.com/api/MySurveys/getSurveyResults/' + idSurvey + '?accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to get survey results.')))
+        );
     }
 
     // Delete a survey by it's id. You will not be able to restore this survey. The survey results become inaccessible.

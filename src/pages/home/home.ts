@@ -16,6 +16,8 @@ export class HomePage {
     surveys: SurveyModel[];
     archiveSurveys: SurveyModel[];
     defaultImages: any;
+    noActiveSurveys: boolean = false;
+    noArchiveSurveys: boolean = false;
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
@@ -40,6 +42,7 @@ export class HomePage {
                 },
                 error => {
                     console.log(<any>error);
+                    if ((error.message == "Failed to get active surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noActiveSurveys = true;
                     loading.dismiss();
             }
         );
@@ -54,6 +57,7 @@ export class HomePage {
                 },
                 error => {
                     console.log(<any>error);
+                    if ((error.message == "Failed to get archive surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noArchiveSurveys = true;
             }
         );
     }
