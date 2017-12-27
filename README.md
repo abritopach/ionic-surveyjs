@@ -17,6 +17,7 @@ This project shows you how to:
     * Show survey results using Chart.js (http://www.chartjs.org/).
     * Intercepting all requests errors.
     * Added Timeout for HTTP requests to the API, and then throw an error if the request fails.
+    * Download survey resulst CSV in Desktop.
 
 ![App example](readme_resources/app.gif "App example")
 

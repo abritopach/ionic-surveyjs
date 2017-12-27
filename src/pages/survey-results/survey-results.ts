@@ -7,6 +7,8 @@ import { ChartsModalPage } from '../../modals/charts-modal';
 
 import { SurveyResultsModel } from '../../models/survey.results.model';
 
+import * as papa from 'papaparse';
+
 /**
  * Generated class for the SurveyResultsPage page.
  *
@@ -48,7 +50,7 @@ export class SurveyResultsPage {
 				this.results = JSON.parse(JSON.stringify(data.Data));
 				//console.log(this.results);
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
-				//console.log(this.results);
+				//console.log(this.surveyResults);
 				if (this.results.length > 0) {
 					this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
 					//console.log(this.keys);
@@ -89,6 +91,26 @@ export class SurveyResultsPage {
 	onClickDeleteSurveyResult(result) {
 		console.log("onClickDeleteSurveyResult");
 		console.log(result);
+	}
+
+	downloadResults() {
+		console.log("downloadResults");
+
+		let csv = papa.unparse({
+			fields: this.keys,
+			data: this.charData
+		  });
+	   
+		  // Dummy implementation for Desktop download purpose.
+		  //let blob = new Blob([csv]);
+		  // Sent the UTF-8 header for the download process.
+		  let blob = new Blob(["\ufeff", csv]);
+		  let a = window.document.createElement("a");
+		  a.href = window.URL.createObjectURL(blob);
+		  a.download = "survey-results.csv";
+		  document.body.appendChild(a);
+		  a.click();
+		  document.body.removeChild(a);
 	}
 
 }
