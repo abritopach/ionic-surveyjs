@@ -44,6 +44,7 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.surveyID)
 		.subscribe(
 			data => {
+				console.log(data);
 				this.results = JSON.parse(JSON.stringify(data.Data));
 				//console.log(this.results);
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
@@ -83,6 +84,11 @@ export class SurveyResultsPage {
 	openModal() {
 		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': this.charData, 'questionsText': this.keys});
 		modal.present();
+	}
+
+	onClickDeleteSurveyResult(result) {
+		console.log("onClickDeleteSurveyResult");
+		console.log(result);
 	}
 
 }

@@ -28,11 +28,13 @@
 		</ion-card>
 	<ion-grid>
 		<ion-row>
+			<ion-col col-1></ion-col>
 			<ion-col col-2 *ngFor="let key of keys; let i = index">
 					<b>P{{i + 1}}</b>
 			</ion-col>
 		</ion-row>
 		<ion-row *ngFor="let result of surveyResults">
+			<ion-col col-1><ion-icon name="trash" (click)="onClickDeleteSurveyResult(result)"></ion-icon></ion-col>
 			<ion-col col-2 *ngFor="let userAnswer of result.userAnswers">
 					{{userAnswer.value}}
 			</ion-col>

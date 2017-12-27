@@ -74,27 +74,44 @@ export class SurveyProvider {
 
     // Delete a survey by it's id. You will not be able to restore this survey. The survey results become inaccessible.
     deleteSurvey(idSurvey: any): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/delete/' + idSurvey + '?accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/delete/' + idSurvey + '?accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to delete survey.')))
+        );
     }
 
     // Change the survey name.
     changeSurveyName(idSurvey, newName): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName));
+        return this.http.get('https://dxsurvey.com/api/MySurveys/changeName/' + idSurvey + '?accessKey=' + this.accessKey + '&name=' + encodeURI(newName)).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to change survey name.')))
+        );
     }
 
     // Restore an archive survey by it's id.
     restoreSurvey(idSurvey): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/restore/' + idSurvey + '?accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/restore/' + idSurvey + '?accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to restore survey.')))
+        );
     }
 
     // Archive the survey by it's id. All survey results will be still accessible. You have to delete a survey to remove the access to it's results.
     archiveSurvey(idSurvey) : Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/archive/' + idSurvey + '?accessKey=' + this.accessKey);
+        return this.http.get('https://dxsurvey.com/api/MySurveys/archive/' + idSurvey + '?accessKey=' + this.accessKey).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to archive survey.')))
+        );
     }
 
     // Create a new survey.
     createSurvey(name): Observable<any> {
-        return this.http.get('https://dxsurvey.com/api/MySurveys/create?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey + '&name=' + encodeURI(name));
+        return this.http.get('https://dxsurvey.com/api/MySurveys/create?ownerId=' + this.ownerId + '&accessKey=' + this.accessKey + '&name=' + encodeURI(name)).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to create survey.')))
+        );
+    }
+
+    // Delete the survey result. Use it to delete spam or test results.
+    deleteSurveyResult(postId, instanceId): Observable<any> {
+        return this.http.get('https://dxsurvey.com/api/MySurveys/deleteResult?accessKey=' + this.accessKey + '&postId=' + postId + '&instanceId=' + instanceId).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to create survey.')))
+        );
     }
     
 }
