@@ -22,11 +22,16 @@
 	<ion-fab top right edge>
     <button ion-fab mini color="danger"><ion-icon name="arrow-dropdown"></ion-icon></button>
     <ion-fab-list>
-      <button ion-fab color="danger" (click)="openModal()"><ion-icon name="stats"></ion-icon></button>
+			<button ion-fab color="danger" (click)="openModal()"><ion-icon name="stats"></ion-icon></button>
+			<button ion-fab color="danger" (click)="presentAlert()"><ion-icon name="people"></ion-icon></button>
       <button ion-fab color="danger" (click)="downloadResults()"><ion-icon name="cloud-download"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
 	<ion-card *ngIf="results?.length > 0">
+			<ion-card-header>
+					<ion-icon name="logo-chrome" item-start></ion-icon>
+					URL pública resultados
+				</ion-card-header>
 			<ion-card-header>
 				<ion-icon name="clipboard" item-start></ion-icon>
 				Leyenda

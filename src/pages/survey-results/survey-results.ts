@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, AlertController } from 'ionic-angular';
 
 import { SurveyProvider } from '../../providers/survey/survey';
 
@@ -23,7 +23,8 @@ import * as papa from 'papaparse';
 })
 export class SurveyResultsPage {
 
-	surveyID : string;
+	surveyID: string;
+	allowAccessResult: boolean;
 	surveys: any;
 	keys: any;
 	charData: any;
@@ -31,10 +32,11 @@ export class SurveyResultsPage {
 	surveyResults: SurveyResultsModel[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
-			  public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+			  public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 
 		this.surveys = [];
 		this.surveyID = this.navParams.get('surveyID');
+		this.allowAccessResult = this.navParams.get('allowAccessResult');
 		this.charData = [];
 
 		let loading = this.loadingCtrl.create({
@@ -46,7 +48,7 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.surveyID)
 		.subscribe(
 			data => {
-				console.log(data);
+				//console.log(data);
 				this.results = JSON.parse(JSON.stringify(data.Data));
 				//console.log(this.results);
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
@@ -112,5 +114,67 @@ export class SurveyResultsPage {
 		  a.click();
 		  document.body.removeChild(a);
 	}
+
+	makeSurveyResultsPublic(content) {
+		console.log("makeSurveyResultsPublic");
+		this.allowAccessResult = !this.allowAccessResult;
+
+		let loading = this.loadingCtrl.create({
+            content: content
+        });
+		loading.present();
+		this.surveyProvider.makeSurveyResultsPublic(this.surveyID, this.allowAccessResult)
+		.subscribe(
+			data => {
+				console.log(data);
+				loading.dismiss();
+			},
+			error => {
+				console.log(<any>error);
+				loading.dismiss();
+			}
+		);
+	}
+
+	presentAlert() {
+		let operation;
+		let loadingContent;
+		if (this.allowAccessResult) {
+			operation = "disable";
+			loadingContent = "Making Survey results not public..."
+		} 
+		else {
+			operation = "grant";
+			loadingContent = "Making Survey results public...";
+		} 
+        let options = this.alertConfig(operation);
+        let alert = this.alertCtrl.create({
+          title: options.title,
+          subTitle: options.subTitle,
+          buttons: [
+            {
+                text: 'Cancel',
+                handler: () => {
+                }
+            },
+            {
+              text: 'Accept',
+              handler: () => {
+				  this.makeSurveyResultsPublic(loadingContent);
+              }
+            }
+          ]
+        });
+        alert.present();
+	}
+	
+	alertConfig(operation) {
+        let options = {
+            grant: {title: 'Grant Access', subTitle: 'Your Survey results can be accessible via direct Url. ¿Are you sure to grant access?'},
+            disable: {title: 'Disable Access', subTitle: 'Your Survey results can not be accessible via direct Url. ¿Are you sure to disable access?'},
+
+        }
+        return options[operation];
+    }
 
 }

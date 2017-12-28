@@ -21,7 +21,7 @@ interface ItemsResponse {
 export class SurveyProvider {
 
     private readonly ownerId: string = encodeURI("ownerId");
-    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private readonly accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     constructor(protected http: HttpClient) {
         //console.log('Hello SurveyProvider Provider');
@@ -111,6 +111,13 @@ export class SurveyProvider {
     deleteSurveyResult(postId, instanceId): Observable<any> {
         return this.http.get('https://dxsurvey.com/api/MySurveys/deleteResult?accessKey=' + this.accessKey + '&postId=' + postId + '&instanceId=' + instanceId).pipe(
             timeoutWith(5000, Observable.throw(new Error('Failed to create survey.')))
+        );
+    }
+
+    // Enable or disable the ability to view survey results by non autorized user via direct link.
+    makeSurveyResultsPublic(idSurvey, makeResultPublic): Observable<any> {
+        return this.http.get('https://dxsurvey.com/api/MySurveys/makeResultPublic/' + idSurvey + '?accessKey=' + this.accessKey + '&makeResultPublic=' + makeResultPublic).pipe(
+            timeoutWith(5000, Observable.throw(new Error('Failed to make survey results public.')))
         );
     }
     

@@ -64,7 +64,8 @@ export class HomePage {
 
     selectedSurvey(survey) {
         this.navCtrl.push(SurveyDetailsPage, {
-            surveyID: survey.Id
+            surveyID: survey.Id,
+            allowAccessResult: survey.AllowAccessResult
         });
     }
 
