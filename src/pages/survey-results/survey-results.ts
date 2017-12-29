@@ -30,12 +30,14 @@ export class SurveyResultsPage {
 	charData: any;
 	results: any;
 	surveyResults: SurveyResultsModel[] = [];
+	publicSurveyURL: string = 'https://surveyjs.io/Results/Survey/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
 			  public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 
 		this.surveys = [];
 		this.surveyID = this.navParams.get('surveyID');
+		this.publicSurveyURL += this.surveyID; 
 		this.allowAccessResult = this.navParams.get('allowAccessResult');
 		this.charData = [];
 

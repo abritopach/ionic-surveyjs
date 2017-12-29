@@ -28,9 +28,9 @@
     </ion-fab-list>
   </ion-fab>
 	<ion-card *ngIf="results?.length > 0">
-			<ion-card-header>
+			<ion-card-header *ngIf="allowAccessResult">
 					<ion-icon name="logo-chrome" item-start></ion-icon>
-					URL pública resultados
+					URL pública resultados -> <a href="{{publicSurveyURL}}" target="_blank">Acceder</a>
 				</ion-card-header>
 			<ion-card-header>
 				<ion-icon name="clipboard" item-start></ion-icon>
