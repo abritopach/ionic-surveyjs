@@ -5,7 +5,8 @@ import { SurveyProvider } from '../../providers/survey/survey';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
 
 import { SurveyModel } from "../../models/survey.model";
-import { Survey } from 'survey-angular';
+
+import { ApiWrapper } from '../../providers/survey/api-wrapper';
 
 @Component({
     selector: 'page-home',
@@ -20,9 +21,22 @@ export class HomePage {
     noArchiveSurveys: boolean = false;
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
-                public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+                public loadingCtrl: LoadingController, public alertCtrl: AlertController, public apiWrapper: ApiWrapper) {
         this.getActiveSurveys();
         this.getArchiveSurveys();
+
+
+        /*
+        // TO TEST API WRAPPER UNCOMMENT THIS CODE. 
+        this.apiWrapper.api.surveys.get('getActive', { accessKey: true, ownerId: true }).subscribe(
+            data => {
+                console.log(data);
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
+        */
     }
 
     getActiveSurveys() {
