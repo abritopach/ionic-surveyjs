@@ -26,8 +26,8 @@ export class HomePage {
         this.getArchiveSurveys();
 
 
-        /*
         // TO TEST API WRAPPER UNCOMMENT THIS CODE. 
+        /*
         this.apiWrapper.api.surveys.get('getActive', { accessKey: true, ownerId: true }).subscribe(
             data => {
                 console.log(data);
@@ -37,6 +37,7 @@ export class HomePage {
             }
         );
         */
+ 
     }
 
     getActiveSurveys() {
