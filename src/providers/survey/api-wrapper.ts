@@ -10,8 +10,8 @@ export class ApiWrapper {
 
     api: any;
     static baseURL = 'https://dxsurvey.com/api/MySurveys/';
-    static ownerId = encodeURI("adrbrpa1988@gmail.com");
-    static accessKey: string = "6ab47e11eb1d4c7d8f40919b03ac54f5";
+    static ownerId = encodeURI("ownerId");
+    static accessKey: string = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
     // https://medium.com/@alonronin/magic-methods-in-javascript-meet-proxy-65e6305f4d3e
     constructor(public http: HttpClient) {
