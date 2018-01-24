@@ -7,6 +7,8 @@ import { SurveyDetailsPage } from '../survey-details/survey-details';
 import { SurveyModel } from "../../models/survey.model";
 
 import { ApiWrapper } from '../../providers/survey/api-wrapper';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
     selector: 'page-home',
@@ -19,11 +21,13 @@ export class HomePage {
     defaultImages: any;
     noActiveSurveys: boolean = false;
     noArchiveSurveys: boolean = false;
+    currentYear = new Date().getFullYear();
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController, public alertCtrl: AlertController, public apiWrapper: ApiWrapper) {
-        this.getActiveSurveys();
-        this.getArchiveSurveys();
+        //this.getActiveSurveys();
+        //this.getArchiveSurveys();
+        this.getSurveys();
 
 
         // TO TEST API WRAPPER UNCOMMENT THIS CODE. 
@@ -38,6 +42,23 @@ export class HomePage {
         );
         */
  
+    }
+
+    getSurveys() {
+        let loading = this.loadingCtrl.create({
+            content: "Loading Surveys..."
+        });
+        Observable.forkJoin(this.surveyProvider.getActiveSurveys(), this.surveyProvider.getArchiveSurveys())
+            .subscribe(data => {
+                //console.log(data);
+                this.surveys = SurveyModel.fromJSONArray(data[0]);
+                this.archiveSurveys = SurveyModel.fromJSONArray(data[1]);
+                loading.dismiss();
+            },
+            error => {
+                console.log(<any>error);
+                loading.dismiss();
+            });
     }
 
     getActiveSurveys() {
