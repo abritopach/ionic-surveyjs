@@ -36,7 +36,6 @@
                 </button>
             </ion-item-options>
         </ion-item-sliding>
-        <p class="error-message" *ngIf="noActiveSurveys">Could not fetch active surveys. Make sure you are connected to the Internet or try again later.</p>
     </ion-list>
     <h5>Archives surveys</h5>
     <ion-list>
@@ -63,8 +62,8 @@
                 </button>
             </ion-item-options>
         </ion-item-sliding>
-        <p class="error-message" *ngIf="noArchiveSurveys">Could not fetch archive surveys. Make sure you are connected to the Internet or try again later.</p>
     </ion-list>
+    <p class="error-message" *ngIf="noSurveys">Could not fetch surveys. Make sure you are connected to the Internet or try again later.</p>
 </ion-content>
 
 <ion-footer>

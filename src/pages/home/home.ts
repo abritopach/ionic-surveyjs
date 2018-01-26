@@ -19,8 +19,7 @@ export class HomePage {
     surveys: SurveyModel[];
     archiveSurveys: SurveyModel[];
     defaultImages: any;
-    noActiveSurveys: boolean = false;
-    noArchiveSurveys: boolean = false;
+    noSurveys: boolean = false;
     currentYear = new Date().getFullYear();
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
@@ -57,6 +56,7 @@ export class HomePage {
             },
             error => {
                 console.log(<any>error);
+                if ((error.message == "Failed to get surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noSurveys = true;
                 loading.dismiss();
             });
     }
@@ -78,7 +78,7 @@ export class HomePage {
                 },
                 error => {
                     console.log(<any>error);
-                    if ((error.message == "Failed to get active surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noActiveSurveys = true;
+                    if ((error.message == "Failed to get surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noSurveys = true;
                     loading.dismiss();
             }
         );
@@ -93,14 +93,16 @@ export class HomePage {
                 },
                 error => {
                     console.log(<any>error);
-                    if ((error.message == "Failed to get archive surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noArchiveSurveys = true;
+                    if ((error.message == "Failed to get surveys.") || (error.message == "Http failure response for (unknown url): 0 Unknown Error")) this.noSurveys = true;
             }
         );
     }
 
     selectedSurvey(survey) {
+        //console.log(survey);
         this.navCtrl.push(SurveyDetailsPage, {
             surveyID: survey.Id,
+            postID: survey.PostId,
             allowAccessResult: survey.AllowAccessResult
         });
     }

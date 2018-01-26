@@ -14,27 +14,8 @@ import * as Survey from 'survey-angular';
 })
 export class SurveyComponent {
 
-    surveyJSON: any;
     surveyId: string;
-
-    /*
-    @Input() set json(surveyJSON) {
-        Survey.Survey.cssType = "bootstrap";
-        Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
-        this.surveyJSON = surveyJSON;
-        //let surveyModel = new Survey.ReactSurveyModel(this.surveyJSON);
-
-        // Change language.
-        surveyModel.locale = "es";
-
-        // Progress Bar.
-        surveyModel.showProgressBar = 'bottom';
-
-        surveyModel.onComplete.add(this.sendDataToServer);
-        Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-
-    }
-    */
+    postId: string;
 
     @Input() set surveyID(surveyID) {
         Survey.Survey.cssType = "bootstrap";
@@ -49,9 +30,13 @@ export class SurveyComponent {
         // Progress Bar.
         surveyModel.showProgressBar = 'bottom';
 
-        surveyModel.onComplete.add(this.sendDataToServer);
+        surveyModel.onComplete.add(this.sendDataToServer.bind(this));
         Survey.SurveyNG.render('surveyElement', { model: surveyModel });
 
+    }
+
+    @Input() set postID(postID) {
+        this.postId = postID;
     }
 
     constructor() {
@@ -61,8 +46,10 @@ export class SurveyComponent {
     }
 
     sendDataToServer(survey) {
-        survey.sendResult('a9cd1b88-8e41-40a2-9331-61ffc60f7060');
-    }
+        //console.log("sendDataToServer");
+        //console.log("postId", this.postId);
+        survey.sendResult(this.postId);
+    };
 
 
 }

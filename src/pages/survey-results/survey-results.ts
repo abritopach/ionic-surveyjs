@@ -50,14 +50,10 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.surveyID)
 		.subscribe(
 			data => {
-				//console.log(data);
 				this.results = JSON.parse(JSON.stringify(data.Data));
-				//console.log(this.results);
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
-				//console.log(this.surveyResults);
 				if (this.results.length > 0) {
 					this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
-					//console.log(this.keys);
 					// Format Data to chart visualization.
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 				}
@@ -77,13 +73,9 @@ export class SurveyResultsPage {
 	groupResultsByQuestion(index) {
 		let keys = this.keys;
 		let res = this.results.reduce(function(res, currentValue) {
-			//if (res.indexOf(currentValue[keys[index]]) === -1 ) {
-			  res.push(currentValue[keys[index]]);
-			//}
-			//console.log(res);
+			res.push(currentValue[keys[index]]);
 			return res;
-		  }, []);
-		//console.log(res);
+		}, []);
 		this.charData.push(res);
 	}
 
@@ -93,12 +85,12 @@ export class SurveyResultsPage {
 	}
 
 	onClickDeleteSurveyResult(result) {
-		console.log("onClickDeleteSurveyResult");
+		//console.log("onClickDeleteSurveyResult");
 		console.log(result);
 	}
 
 	downloadResults() {
-		console.log("downloadResults");
+		//console.log("downloadResults");
 
 		let csv = papa.unparse({
 			fields: this.keys,
@@ -106,7 +98,7 @@ export class SurveyResultsPage {
 		  });
 	   
 		  // Dummy implementation for Desktop download purpose.
-		  //let blob = new Blob([csv]);
+		  // let blob = new Blob([csv]);
 		  // Sent the UTF-8 header for the download process.
 		  let blob = new Blob(["\ufeff", csv]);
 		  let a = window.document.createElement("a");
@@ -118,7 +110,7 @@ export class SurveyResultsPage {
 	}
 
 	makeSurveyResultsPublic(content) {
-		console.log("makeSurveyResultsPublic");
+		//console.log("makeSurveyResultsPublic");
 		this.allowAccessResult = !this.allowAccessResult;
 
 		let loading = this.loadingCtrl.create({
