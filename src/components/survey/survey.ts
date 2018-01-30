@@ -14,15 +14,14 @@ import * as Survey from 'survey-angular';
 })
 export class SurveyComponent {
 
-    surveyId: string;
-    postId: string;
+    _survey: any;
 
-    @Input() set surveyID(surveyID) {
+    @Input() set survey(survey) {
         Survey.Survey.cssType = "bootstrap";
         Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
 
-        this.surveyId = surveyID;
-        let surveyModel = new Survey.ReactSurveyModel({ surveyId: this.surveyId });
+        this._survey = survey;
+        let surveyModel = new Survey.ReactSurveyModel({ surveyId: this._survey.Id });
 
         // Change language.
         surveyModel.locale = "es";
@@ -35,10 +34,6 @@ export class SurveyComponent {
 
     }
 
-    @Input() set postID(postID) {
-        this.postId = postID;
-    }
-
     constructor() {
     }
 
@@ -47,8 +42,8 @@ export class SurveyComponent {
 
     sendDataToServer(survey) {
         //console.log("sendDataToServer");
-        //console.log("postId", this.postId);
-        survey.sendResult(this.postId);
+        //console.log("postId", this._survey.PostId);
+        survey.sendResult(this._survey.PostId);
     };
 
 

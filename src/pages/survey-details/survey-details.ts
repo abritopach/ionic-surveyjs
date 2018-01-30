@@ -17,15 +17,10 @@ import { SurveyResultsPage } from '../survey-results/survey-results';
 })
 export class SurveyDetailsPage {
 
-    surveyID : string;
-    postID: string;
-    allowAccessResult: boolean;
+    survey: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
-        this.surveyID = this.navParams.get('surveyID');
-        this.postID = this.navParams.get('postID');
-        this.allowAccessResult = this.navParams.get('allowAccessResult');
-
+        this.survey = this.navParams.get('survey');
     }
 
     ionViewDidLoad() {
@@ -34,8 +29,7 @@ export class SurveyDetailsPage {
 	
 	getSurveyResults() {
 		this.navCtrl.push(SurveyResultsPage, {
-            surveyID: this.surveyID, 
-            allowAccessResult: this.allowAccessResult
+            survey: this.survey
         });
 	}
 

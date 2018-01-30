@@ -23,7 +23,7 @@ import * as papa from 'papaparse';
 })
 export class SurveyResultsPage {
 
-	surveyID: string;
+	survey: any;
 	allowAccessResult: boolean;
 	surveys: any;
 	keys: any;
@@ -36,9 +36,9 @@ export class SurveyResultsPage {
 			  public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 
 		this.surveys = [];
-		this.surveyID = this.navParams.get('surveyID');
-		this.publicSurveyURL += this.surveyID; 
-		this.allowAccessResult = this.navParams.get('allowAccessResult');
+		this.survey = this.navParams.get('survey');
+		this.publicSurveyURL += this.survey.Id; 
+		this.allowAccessResult = this.survey.allowAccessResult;
 		this.charData = [];
 
 		let loading = this.loadingCtrl.create({
@@ -47,7 +47,7 @@ export class SurveyResultsPage {
 
 		loading.present();
 		
-		this.surveyProvider.getSurveyResults(this.surveyID)
+		this.surveyProvider.getSurveyResults(this.survey.Id)
 		.subscribe(
 			data => {
 				this.results = JSON.parse(JSON.stringify(data.Data));
@@ -117,7 +117,7 @@ export class SurveyResultsPage {
             content: content
         });
 		loading.present();
-		this.surveyProvider.makeSurveyResultsPublic(this.surveyID, this.allowAccessResult)
+		this.surveyProvider.makeSurveyResultsPublic(this.survey.Id, this.allowAccessResult)
 		.subscribe(
 			data => {
 				console.log(data);
