@@ -14,9 +14,15 @@
 </ion-header>
       
 <ion-content padding>
-    <ion-row *ngFor="let data of chartData; let i = index" justify-content-center align-items-center>
-        <h5>Pregunta P{{i + 1}}</h5>
-        <p>{{questionsText[i]}}</p>
-        <chart [chartData]="data"></chart>
-    </ion-row>
+    <ion-card *ngFor="let data of chartData; let i = index" justify-content-center align-items-center>
+        <ion-card-header text-wrap>
+            <h5>Pregunta P{{i + 1}}</h5>
+            <p>{{questionsText[i]}}</p>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-row>
+                <chart [chartData]="data"></chart>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

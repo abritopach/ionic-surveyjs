@@ -23,6 +23,7 @@ import * as papa from 'papaparse';
 })
 export class SurveyResultsPage {
 
+	currentYear = new Date().getFullYear();
 	survey: any;
 	allowAccessResult: boolean;
 	surveys: any;

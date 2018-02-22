@@ -1,17 +1,19 @@
 charts-modal {
-    h5 {
+  .card-md h5 {
         display: flex;
         color: #ccc;
         width: 100%;
         margin-top: .2em!important;
+        margin-bottom: .8em!important;
+        font-size: 1.8rem;
       }
-      h5::before,
-      h5::after {
+      .card-md h5::before,
+      .card-md h5::after {
         content: "";
         flex:1;
         align-self: center;
         border-bottom: 1px solid #ccc;
       }
-      h5::before {margin-right: .3em}
-      h5::after {margin-left: .3em}
+      .card-md h5::before {margin-right: .3em}
+      .card-md h5::after {margin-left: .3em}
 }

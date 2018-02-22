@@ -17,6 +17,7 @@ import { SurveyResultsPage } from '../survey-results/survey-results';
 })
 export class SurveyDetailsPage {
 
+    currentYear = new Date().getFullYear();
     survey: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
