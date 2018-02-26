@@ -78,6 +78,7 @@ export class SurveyResultsPage {
 			return res;
 		}, []);
 		this.charData.push(res);
+		console.log(this.charData);
 	}
 
 	openModal() {

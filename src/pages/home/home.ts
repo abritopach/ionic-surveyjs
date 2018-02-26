@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ItemSliding } from 'ionic-angular';
 
 import { SurveyProvider } from '../../providers/survey/survey';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
@@ -60,6 +60,7 @@ export class HomePage {
         let loading = this.loadingCtrl.create({
             content: "Loading Surveys..."
         });
+        loading.present();
         Observable.forkJoin(this.surveyProvider.getActiveSurveys(), this.surveyProvider.getArchiveSurveys())
             .subscribe(data => {
                 //console.log(data);
@@ -118,29 +119,86 @@ export class HomePage {
         });
     }
 
-    onClickCreateSurvey() {
-        this.presentAlert(null, 'create');
+    presentAlert({
+        survey = null,
+        operation = '', 
+      } = {}) {
+        let options = this.alertConfig(operation);
+        let alert = this.alertCtrl.create({
+          title: options.title,
+          subTitle: options.subTitle,
+          buttons: [
+            {
+                text: 'Cancel',
+                handler: () => {
+                }
+            },
+            {
+              text: 'Accept',
+              handler: () => {
+                if (operation == 'delete') this.deleteSurvey(survey);
+                if (operation == 'activate') this.activateSurvey(survey);
+                if (operation == 'archive') this.archiveSurvey(survey);
+                if (operation == "create") this.createSurvey("New Survey :)");
+              }
+            }
+          ]
+        });
+        alert.present();
     }
 
-    onClickActivateSurvey(survey) {
-        console.log("onClickActivateSurvey", survey);
-        this.presentAlert(survey, 'activate');
+    showPrompt(survey, slidingItem: ItemSliding) {
+        let prompt = this.alertCtrl.create({
+          title: 'Update Survey Name',
+          message: "Enter a name for this survey",
+          inputs: [
+            {
+              name: 'name',
+              placeholder: 'Name'
+            },
+          ],
+          buttons: [
+            {
+              text: 'Cancel',
+              handler: data => {
+                //console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Accept',
+              handler: data => {
+                //console.log('Accept clicked');
+                //console.log(data);
+                this.changeSurveyName(survey, data.name, slidingItem);
+              }
+            }
+          ]
+        });
+        prompt.present();
     }
 
-    onClickArchiveSurvey(survey) {
-        console.log("onClickArchiveSurvey", survey);
-        this.presentAlert(survey, 'archive');
+    createSurvey(name) {
+        let loading = this.loadingCtrl.create({
+            content: "Creating Survey..."
+        });
+
+        loading.present();
+
+        this.surveyProvider.createSurvey(name)
+        .subscribe(
+            data => {
+                //console.log(data);
+                let survey: SurveyModel = new SurveyModel(data);
+                this.surveys.unshift(survey);
+                loading.dismiss();
+            },
+            error => {
+                console.log(<any>error);
+                loading.dismiss();
+            }
+        );
     }
 
-    onClickEditSurvey(survey) {
-        console.log("onClickEditSurvey", survey);
-        this.showPrompt(survey);
-    }
-
-    onClickDeleteSurvey(survey, type) {
-        console.log("onClickDeleteSurvey", survey);
-        this.presentAlert(survey, 'delete');
-    }
 
     deleteSurvey(survey) {
         let loading = this.loadingCtrl.create({
@@ -166,62 +224,7 @@ export class HomePage {
         );
     }
 
-    presentAlert(survey, operation) {
-        let options = this.alertConfig(operation);
-        let alert = this.alertCtrl.create({
-          title: options.title,
-          subTitle: options.subTitle,
-          buttons: [
-            {
-                text: 'Cancel',
-                handler: () => {
-                }
-            },
-            {
-              text: 'Accept',
-              handler: () => {
-                if (operation == 'delete') this.deleteSurvey(survey);
-                if (operation == 'activate') this.activateSurvey(survey);
-                if (operation == 'archive') this.archiveSurvey(survey);
-                if (operation == "create") this.createSurvey("New Survey :)");
-              }
-            }
-          ]
-        });
-        alert.present();
-    }
-
-    showPrompt(survey) {
-        let prompt = this.alertCtrl.create({
-          title: 'Update Survey Name',
-          message: "Enter a name for this survey",
-          inputs: [
-            {
-              name: 'name',
-              placeholder: 'Name'
-            },
-          ],
-          buttons: [
-            {
-              text: 'Cancel',
-              handler: data => {
-                //console.log('Cancel clicked');
-              }
-            },
-            {
-              text: 'Accept',
-              handler: data => {
-                //console.log('Accept clicked');
-                //console.log(data);
-                this.changeSurveyName(survey, data.name);
-              }
-            }
-          ]
-        });
-        prompt.present();
-      }
-
-    changeSurveyName(survey, newName) {
+    changeSurveyName(survey, newName, slidingItem) {
         let loading = this.loadingCtrl.create({
             content: "Updating Survey name..."
         });
@@ -232,33 +235,15 @@ export class HomePage {
         .subscribe(
             data => {
                 console.log(data);
+                slidingItem.close();
                 loading.dismiss();
             },
             error => {
                 console.log(<any>error);
-                if (error.status == 200) survey.Name = newName;
-                loading.dismiss();
-            }
-        );
-    }
-
-    createSurvey(name) {
-        let loading = this.loadingCtrl.create({
-            content: "Creating Survey..."
-        });
-
-        loading.present();
-
-        this.surveyProvider.createSurvey(name)
-        .subscribe(
-            data => {
-                //console.log(data);
-                let survey: SurveyModel = new SurveyModel(data);
-                this.surveys.unshift(survey);
-                loading.dismiss();
-            },
-            error => {
-                console.log(<any>error);
+                if (error.status == 200)  {
+                    survey.Name = newName;
+                    slidingItem.close();
+                }
                 loading.dismiss();
             }
         );

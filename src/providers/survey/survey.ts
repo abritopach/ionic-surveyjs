@@ -110,7 +110,7 @@ export class SurveyProvider {
     // Delete the survey result. Use it to delete spam or test results.
     deleteSurveyResult(postId, instanceId): Observable<any> {
         return this.http.get('https://dxsurvey.com/api/MySurveys/deleteResult?accessKey=' + this.accessKey + '&postId=' + postId + '&instanceId=' + instanceId).pipe(
-            timeoutWith(5000, Observable.throw(new Error('Failed to create survey.')))
+            timeoutWith(10000, Observable.throw(new Error('Failed to create survey.')))
         );
     }
 
