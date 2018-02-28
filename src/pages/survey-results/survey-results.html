@@ -22,7 +22,7 @@
       <button ion-fab color="danger" (click)="downloadResults()"><ion-icon name="cloud-download"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-	<ion-card *ngIf="results?.length > 0">
+	<ion-card *ngIf="surveyResults?.length > 0">
 			<ion-card-header *ngIf="allowAccessResult">
 					<ion-icon name="logo-chrome" item-start></ion-icon>
 					URL pública resultados -> <a href="{{publicSurveyURL}}" target="_blank">Acceder</a>

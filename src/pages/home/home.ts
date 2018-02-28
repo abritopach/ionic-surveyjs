@@ -10,8 +10,6 @@ import { ApiWrapper } from '../../providers/survey/api-wrapper';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 
-import { SurveyList } from '../../models/survey.mst.model';
-
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -23,9 +21,6 @@ export class HomePage {
     defaultImages: any;
     noSurveys: boolean = false;
     currentYear = new Date().getFullYear();
-
-    surveysMobx: any;
-
 
     constructor(public navCtrl: NavController, public surveyProvider: SurveyProvider,
                 public loadingCtrl: LoadingController, public alertCtrl: AlertController, public apiWrapper: ApiWrapper) {
@@ -44,14 +39,6 @@ export class HomePage {
                 console.log(<any>error);
             }
         );
-        */
-
-        /*
-        this.surveysMobx = SurveyList.create({
-            surveys: []
-        });
-
-        this.surveysMobx.getActiveSurveys(this.surveyProvider);
         */
  
     }

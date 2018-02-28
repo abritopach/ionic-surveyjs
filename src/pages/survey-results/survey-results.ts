@@ -26,21 +26,19 @@ export class SurveyResultsPage {
 	currentYear = new Date().getFullYear();
 	survey: any;
 	allowAccessResult: boolean;
-	surveys: any;
 	keys: any;
-	charData: any;
-	results: any;
+	// charData: any;
+	// results: any;
 	surveyResults: SurveyResultsModel[] = [];
 	publicSurveyURL: string = 'https://surveyjs.io/Results/Survey/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public surveyProvider: SurveyProvider,
 			  public loadingCtrl: LoadingController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 
-		this.surveys = [];
 		this.survey = this.navParams.get('survey');
 		this.publicSurveyURL += this.survey.Id; 
 		this.allowAccessResult = this.survey.allowAccessResult;
-		this.charData = [];
+		// this.charData = [];
 
 		let loading = this.loadingCtrl.create({
             content: "Loading Survey results..."
@@ -51,13 +49,17 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.survey.Id)
 		.subscribe(
 			data => {
-				this.results = JSON.parse(JSON.stringify(data.Data));
+				//this.results = JSON.parse(JSON.stringify(data.Data));
 				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
+				this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
+				// console.log(this.surveyResults);
+				/*
 				if (this.results.length > 0) {
 					this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
 					// Format Data to chart visualization.
 					for (let i = 0; i < this.keys.length; i++) this.groupResultsByQuestion(i);
 				}
+				*/
 				loading.dismiss();
 			},
 			error => {
@@ -71,6 +73,7 @@ export class SurveyResultsPage {
 		//console.log('ionViewDidLoad SurveyResultsPage');
 	}
 
+	/*
 	groupResultsByQuestion(index) {
 		let keys = this.keys;
 		let res = this.results.reduce(function(res, currentValue) {
@@ -80,9 +83,29 @@ export class SurveyResultsPage {
 		this.charData.push(res);
 		console.log(this.charData);
 	}
+	*/
+
+	formatChartData() {
+        const results = this.surveyResults;
+        let userAnswers = [];
+        // Concatenate all user's answers.
+        results.map(result => { 
+            userAnswers.push(...result.userAnswers)
+        });
+
+        // Group by answers by question.
+        let data = userAnswers.reduce(function(rv, x) {
+            (rv[x['idQuestion']] = rv[x['idQuestion']] || []).push(x.value);
+            return rv;
+            }, {});
+        
+		const chartData = Object.keys(data).map(i => data[i]);
+
+        return chartData;
+    }
 
 	openModal() {
-		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': this.charData, 'questionsText': this.keys});
+		let modal = this.modalCtrl.create(ChartsModalPage, {'chartData': /*this.charData*/this.formatChartData(), 'questionsText': this.keys});
 		modal.present();
 	}
 
@@ -96,7 +119,7 @@ export class SurveyResultsPage {
 
 		let csv = papa.unparse({
 			fields: this.keys,
-			data: this.charData
+			data: /*this.charData*/ this.formatChartData()
 		  });
 	   
 		  // Dummy implementation for Desktop download purpose.
