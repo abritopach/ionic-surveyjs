@@ -2,6 +2,8 @@
 
 Sample project that shows how to integrate SurveyJS in Ionic APP.
 
+![Technologies](readme_resources/ionic_survey.png "Technologies")
+
 This project shows you how to:
 
     * Integrate SurveyJS in Ionic APP.
