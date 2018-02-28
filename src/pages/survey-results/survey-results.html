@@ -22,10 +22,11 @@
       <button ion-fab color="danger" (click)="downloadResults()"><ion-icon name="cloud-download"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-	<ion-card *ngIf="surveyResults?.length > 0">
-			<ion-card-header *ngIf="allowAccessResult">
+	<ion-grid *ngIf="surveyResults?.length > 0" fixed>
+		<ion-card>
+			<ion-card-header *ngIf="survey.AllowAccessResult">
 					<ion-icon name="logo-chrome" item-start></ion-icon>
-					URL pública resultados -> <a href="{{publicSurveyURL}}" target="_blank">Acceder</a>
+					URL pública resultados -> <a href="{{survey.publicSurveyURL}}" target="_blank">Acceder</a>
 				</ion-card-header>
 			<ion-card-header>
 				<ion-avatar item-start>
@@ -38,7 +39,6 @@
 				<p *ngFor="let key of keys; let i = index"><b>P{{i + 1}}</b> {{key}}</p>
 			</ion-card-content>
 		</ion-card>
-	<ion-grid>
 		<ion-row>
 			<ion-col col-1></ion-col>
 			<ion-col col-2 *ngFor="let key of keys; let i = index">
