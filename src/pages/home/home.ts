@@ -50,8 +50,9 @@ export class HomePage {
         loading.present();
         Observable.forkJoin(this.surveyProvider.getActiveSurveys(), this.surveyProvider.getArchiveSurveys())
             .subscribe(data => {
-                //console.log(data);
+                // console.log(data);
                 this.surveys = SurveyModel.fromJSONArray(data[0]);
+                // console.log(this.surveys);
                 this.archiveSurveys = SurveyModel.fromJSONArray(data[1]);
                 loading.dismiss();
             },
