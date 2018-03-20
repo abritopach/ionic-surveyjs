@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-	<ion-fab top right edge>
+	<ion-fab top right edge *ngIf="surveyResults?.length > 0">
     <button ion-fab mini color="danger"><ion-icon name="arrow-dropdown"></ion-icon></button>
     <ion-fab-list>
 			<button ion-fab color="danger" (click)="openModal()"><ion-icon name="stats"></ion-icon></button>
@@ -59,11 +59,9 @@
 <ion-footer>
     <ion-toolbar color="primary">
 				<ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>
-				<!--
         <ion-buttons end>
-            <a class="github-button" href="https://github.com/abritopach/ionic-surveyjs" data-icon="octicon-star" aria-label="Star abritopach/ionic-surveyjs on GitHub">Star</a>
-            <a class="github-button" href="https://github.com/abritopach" aria-label="Follow @abritopach on GitHub">GitHub</a>
+						<div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach%2Fionic-surveyjs&amp;title=&amp;aria-label=Star%20abritopach%2Fionic-surveyjs%20on%20GitHub&amp;data-icon=octicon-star&amp;data-text=Star" style="width: 50px; height: 20px; border: none;"></iframe></div>
+            <div class="github-button"><iframe allowtransparency="true" scrolling="no" frameborder="0" src="https://buttons.github.io/buttons.html#href=https%3A%2F%2Fgithub.com%2Fabritopach&amp;title=&amp;aria-label=Follow%20%40abritopach%20on%20GitHub&amp;data-text=GitHub" style="width: 67px; height: 20px; border: none;"></iframe></div>
 				</ion-buttons>
-			-->
     </ion-toolbar>
 </ion-footer>

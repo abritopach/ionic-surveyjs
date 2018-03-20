@@ -43,8 +43,10 @@ export class SurveyResultsPage {
 		this.surveyProvider.getSurveyResults(this.survey.Id)
 		.subscribe(
 			data => {
-				this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
-				this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
+				if (data.ResultCount !== 0) {
+					this.surveyResults = SurveyResultsModel.fromJSONArray(data.Data);
+					this.keys = this.surveyResults[0].userAnswers.map((val, key) => {return val['textQuestion']});
+				}
 				loading.dismiss();
 			},
 			error => {
